@@ -1,0 +1,6 @@
+##mongo≈‰÷√
+data:
+    mongodb:
+        port: 27017
+        host: 114.115.131.124
+        database: devcloud
