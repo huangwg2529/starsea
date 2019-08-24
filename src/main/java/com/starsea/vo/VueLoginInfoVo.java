@@ -1,4 +1,4 @@
-package com.blog.vo;
+package com.starsea.vo;
 
 import javax.validation.constraints.NotNull;
 

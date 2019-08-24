@@ -1,4 +1,4 @@
-package com.blog.result;
+package com.starsea.result;
 
 public enum ResultCode {
     /**
