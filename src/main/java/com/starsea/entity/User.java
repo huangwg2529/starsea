@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 
+import static org.springframework.data.mongodb.core.index.IndexDirection.ASCENDING;
 import static org.springframework.data.mongodb.core.index.IndexDirection.DESCENDING;
 
 //注释此类将被映射到数据库的users集合
@@ -16,9 +17,9 @@ import static org.springframework.data.mongodb.core.index.IndexDirection.DESCEND
 
 public class User implements Serializable {
     @Id
-    private ObjectId id;
+    private ObjectId userId;
     //创建单字段索引（默认ASCENDING 升序、DESCENDING 降序）
-    @Indexed(direction = DESCENDING)
+    @Indexed(direction =DESCENDING)
     @Field
     private String username;
     @Field
@@ -36,8 +37,8 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public ObjectId getId() {
-        return id;
+    public ObjectId getUserId() {
+        return userId;
     }
 
     public String getUsername() {
@@ -48,8 +49,8 @@ public class User implements Serializable {
         return password;
     }
 
-    public void setId(ObjectId id) {
-        this.id = id;
+    public void setUserId(ObjectId id) {
+        this.userId = id;
     }
 
     public void setUsername(String username) {

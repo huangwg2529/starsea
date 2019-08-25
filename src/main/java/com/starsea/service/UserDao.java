@@ -5,6 +5,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface UserDao {
-    public String addUser(User user);
+
+    public void addUser(User user);
+
+    public void deleteUser(User user);
+
+    public void updateUser(User user);
+
     public User getUserByName(String username);
 }

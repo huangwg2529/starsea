@@ -15,16 +15,26 @@ public class UserDaoImpl implements UserDao {
 
     //增
     @Override
-    public String addUser(User user){
-        System.out.println("will add");
+    public void addUser(User user){
         userRepository.insert(user);
-        return "SUCCESS";
     }
+
+    //删
+    @Override
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
+
+    //改
+    @Override
+    public void updateUser(User user) {
+        //userRepository.
+    }
+
 
     //查
     @Override
     public User getUserByName(String username){
-        System.out.println("find");
         return userRepository.findByUsername(username);
         //return mongoTemplate.findOne(new Query(Criteria.where("username").is(username)), User.class);
     }
