@@ -2,14 +2,12 @@ package com.starsea.controller;
 
 import javax.validation.Valid;
 
+import com.starsea.entity.Book;
+import com.starsea.service.BookDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.starsea.vo.VueLoginInfoVo;
 import com.starsea.result.Result;
@@ -23,6 +21,9 @@ import java.util.*;
 public class LoginController {
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private BookDao bookDao;
 
     /**
      * 登录控制器，前后端分离用的不同协议和端口，所以需要加入@CrossOrigin支持跨域。
@@ -86,5 +87,4 @@ public class LoginController {
         String message = String.format("注册失败，用户名已存在。");
         return ResultFactory.buildFailResult(message);
     }
-
 }
