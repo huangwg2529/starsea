@@ -14,8 +14,8 @@ public class showBookController {
     @CrossOrigin
     @RequestMapping(value = "/api/showBook", method = RequestMethod.GET)
     @ResponseBody
-    public Book showBook() {
-        Book book = bookDao.getBookByName("我想吃掉你的胰脏");
+    public Book showBook(String name) {
+        Book book = bookDao.getBookByName(name);
         System.out.println(book.getIntroduction());
         return book;
     }
