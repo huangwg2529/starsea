@@ -4,6 +4,7 @@ import com.starsea.entity.Book;
 import com.starsea.entity.BookEvaluation;
 import com.starsea.entity.Movie;
 import com.starsea.entity.MovieEvaluation;
+import com.starsea.enums.BookType;
 import com.starsea.enums.Region;
 import com.starsea.enums.Type;
 import com.starsea.service.BookDao;
@@ -38,10 +39,15 @@ public class InitProject implements ApplicationRunner {
         }
          */
 
+        /**
+        BookType[] types = {BookType.EDUCATION};
+        //Book(String isbn, String name, String author, String publishingCompany, int releaseYear, Region region, String language, BookType[] bookTypes, String imgAddr, int price, String introduction)
+        Book math = new Book("111121111", "mathbook", "李尚志", "高等教育出版社", 2015, Region.CHINESE_MAINLAND, "中文", types, "image/book/mathbook.png", 59.9, "这是一本数学书");
+        bookDao.addBook(math);
         movieDao.updateMovieScore(movieDao.getMovieByName("寄生虫"));
         bookDao.updateBookScore(bookDao.getBookByName("mathbook"));
         System.out.println("init finished");
-
+        */
 
         /**
          * 测试影视数据库

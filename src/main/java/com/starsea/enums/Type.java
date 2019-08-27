@@ -1,43 +1,49 @@
 package com.starsea.enums;
 
 /**
- * 书籍影视类型
+ * 影视类型
  */
 public enum Type {
     /**
      * 喜剧
      */
-    COMEDY,
+    COMEDY("喜剧"),
     /**
      * 动作
      */
-    ACTION,
+    ACTION("动作"),
     /**
      * 爱情
      */
-    LOVE,
+    LOVE("爱情"),
     /**
      * 科幻
      */
-    SCIENCE_FICTION,
+    SCIENCE_FICTION("科幻"),
     /**
      * 动画
      */
-    ANIMATION,
+    ANIMATION("动画"),
     /**
      * 武侠
      */
-    SWORDSMAN,
+    SWORDSMAN("武侠"),
     /**
      * 历史
      */
-    HISTORY,
+    HISTORY("历史"),
     /**
      * 战争
      */
-    WAR,
+    WAR("战争"),
     /**
      * 剧情
      */
-    PLOT;
+    PLOT("剧情");
+
+    private String type;
+
+    Type(String type) {
+        this.type = type;
+    }
 }

@@ -4,60 +4,65 @@ public enum BookType {
     /**
      * 小说
      */
-    FICTION,
+    FICTION("小说"),
 
     /**
      * 科幻
      */
-    SCIENCE_FICTION,
+    SCIENCE_FICTION("科幻"),
     /**
      * 武侠
      */
-    SWORDSMAN,
+    SWORDSMAN("武侠"),
 
     /**
      * 言情
      */
-    LOVE,
+    LOVE("言情"),
 
     /**
      * 历史
      */
-    HISTORY,
+    HISTORY("历史"),
 
     /**
      * 哲学
      */
-    PHILOSOPHY,
+    PHILOSOPHY("哲学"),
 
     /**
      * 传记
      */
-    BIOGRAPHY,
+    BIOGRAPHY("传记"),
 
     /**
      * 教育
      */
-    EDUCATION,
+    EDUCATION("教育"),
 
     /**
      * 摄影
      */
-    PHOTOGRAPHY,
+    PHOTOGRAPHY("摄影"),
 
     /**
      * IT
      */
-    IT,
+    IT("IT"),
 
     /**
      * 经济
      */
-    ECONOMICS,
+    ECONOMICS("经济"),
 
     /**
      * 推理
      */
-    INFERENCE;
+    INFERENCE("推理");
 
+    private String type;
+
+    BookType(String type) {
+        this.type = type;
+    }
 }

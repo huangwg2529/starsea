@@ -17,11 +17,17 @@ import static org.springframework.data.mongodb.core.index.IndexDirection.ASCENDI
 public class Book implements Serializable {
     @Id
     private ObjectId Id;
-
+    /**
+     * ISBN
+     */
     private String isbn;
-    @Indexed(direction =ASCENDING)
+    /**
+     * 书名
+     */
     private String name;
-
+    /**
+     * 作者
+     */
     private String author;
     /**
      * 出版社
@@ -35,47 +41,52 @@ public class Book implements Serializable {
      * 地区
      */
     private Region region;
-
+    /**
+     * 语言
+     */
+    private String language;
+    /**
+     * 类型
+     */
     private BookType[] bookTypes;
-
+    /**
+     * 图片地址
+     */
     private String imgAddr;
-
-    private int price;
-
+    /**
+     * 价格
+     */
+    private double price;
+    /**
+     * 简介
+     */
     private String introduction;
-
+    /**
+     * 评分
+     */
     private double score;
-
+    /**
+     * 评论数
+     */
     private int evaluationNum = 0;
 
     public Book() {
 
     }
 
-
-    public Book(String isbn, String name, String author, String imgAddr, int price, String introduction) {
-        this.isbn = isbn;
-        this.name = name;
-        this.author = author;
-        this.imgAddr = imgAddr;
-        this.price = price;
-        this.introduction = introduction;
-    }
-
     @PersistenceConstructor
-    public Book(String isbn, String name, String author, String publishingCompany, int releaseYear, Region region, BookType[] bookTypes, String imgAddr, int price, String introduction, double score, int evaluationNum) {
+    public Book(String isbn, String name, String author, String publishingCompany, int releaseYear, Region region, String language, BookType[] bookTypes, String imgAddr, double price, String introduction) {
         this.isbn = isbn;
         this.name = name;
         this.author = author;
         this.publishingCompany = publishingCompany;
         this.releaseYear = releaseYear;
         this.region = region;
+        this.language = language;
         this.bookTypes = bookTypes;
         this.imgAddr = imgAddr;
         this.price = price;
         this.introduction = introduction;
-        this.score = score;
-        this.evaluationNum = evaluationNum;
     }
 
     public String getIsbn() {
@@ -110,11 +121,11 @@ public class Book implements Serializable {
         this.imgAddr = imgAddr;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -180,5 +191,13 @@ public class Book implements Serializable {
 
     public void setBookTypes(BookType[] bookTypes) {
         this.bookTypes = bookTypes;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

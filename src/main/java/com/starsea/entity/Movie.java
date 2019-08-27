@@ -13,20 +13,30 @@ import java.io.Serializable;
 public class Movie implements Serializable {
     @Id
     private ObjectId movieId;
-
+    /**
+     * 电影名字
+     */
     private String name;
-
+    /**
+     * 导演
+     */
     private String director;
-
+    /**
+     * 主演
+     */
     private String stars;
     /**
      * 影视类型
      */
-    private Type[] types;
+    private String types;
     /**
      * 所属地区
      */
-    private Region region;
+    private String region;
+    /**
+     * 语言
+     */
+    private String language;
     /**
      * 上映年份
      */
@@ -39,9 +49,13 @@ public class Movie implements Serializable {
      * 评论人数
      */
     private int evaluationNum = 0;
-
+    /**
+     * 简介
+     */
     private String introduction;
-
+    /**
+     * 图片路径
+     */
     private String imgAddr;
 
     public Movie() {
@@ -49,12 +63,13 @@ public class Movie implements Serializable {
     }
 
     @PersistenceConstructor
-    public Movie(String name, String director, String stars, Type[] types, Region region, int releaseYear, String introduction) {
+    public Movie(String name, String director, String stars, String types, String region, String language, int releaseYear, String introduction) {
         this.name = name;
         this.director = director;
         this.stars = stars;
         this.types = types;
         this.region = region;
+        this.language = language;
         this.releaseYear = releaseYear;
         this.introduction = introduction;
     }
@@ -91,19 +106,19 @@ public class Movie implements Serializable {
         this.stars = stars;
     }
 
-    public Type[] getTypes() {
+    public String getTypes() {
         return types;
     }
 
-    public void setTypes(Type[] types) {
+    public void setTypes(String types) {
         this.types = types;
     }
 
-    public Region getRegion() {
+    public String getRegion() {
         return region;
     }
 
-    public void setRegion(Region region) {
+    public void setRegion(String region) {
         this.region = region;
     }
 
@@ -145,6 +160,14 @@ public class Movie implements Serializable {
 
     public void setImgAddr(String imgAddr) {
         this.imgAddr = imgAddr;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }
 
