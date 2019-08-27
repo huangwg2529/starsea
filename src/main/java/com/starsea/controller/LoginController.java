@@ -56,6 +56,7 @@ public class LoginController {
         return ResultFactory.buildFailResult(message);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/api/register", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public Result Register(@Valid @RequestBody VueLoginInfoVo loginInfoVo, BindingResult bindingResult) {
