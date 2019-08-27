@@ -1,5 +1,7 @@
 package com.starsea.entity;
 
+import com.starsea.enums.BookType;
+import com.starsea.enums.Region;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -21,6 +23,20 @@ public class Book implements Serializable {
     private String name;
 
     private String author;
+    /**
+     * 出版社
+     */
+    private String publishingCompany;
+    /**
+     * 出版年份
+     */
+    private int releaseYear;
+    /**
+     * 地区
+     */
+    private Region region;
+
+    private BookType[] bookTypes;
 
     private String imgAddr;
 
@@ -30,11 +46,13 @@ public class Book implements Serializable {
 
     private double score;
 
+    private int evaluationNum = 0;
+
     public Book() {
 
     }
 
-    @PersistenceConstructor
+
     public Book(String isbn, String name, String author, String imgAddr, int price, String introduction) {
         this.isbn = isbn;
         this.name = name;
@@ -42,6 +60,22 @@ public class Book implements Serializable {
         this.imgAddr = imgAddr;
         this.price = price;
         this.introduction = introduction;
+    }
+
+    @PersistenceConstructor
+    public Book(String isbn, String name, String author, String publishingCompany, int releaseYear, Region region, BookType[] bookTypes, String imgAddr, int price, String introduction, double score, int evaluationNum) {
+        this.isbn = isbn;
+        this.name = name;
+        this.author = author;
+        this.publishingCompany = publishingCompany;
+        this.releaseYear = releaseYear;
+        this.region = region;
+        this.bookTypes = bookTypes;
+        this.imgAddr = imgAddr;
+        this.price = price;
+        this.introduction = introduction;
+        this.score = score;
+        this.evaluationNum = evaluationNum;
     }
 
     public String getIsbn() {
@@ -100,4 +134,51 @@ public class Book implements Serializable {
         this.score = score;
     }
 
+    public ObjectId getId() {
+        return Id;
+    }
+
+    public void setId(ObjectId id) {
+        Id = id;
+    }
+
+    public int getEvaluationNum() {
+        return evaluationNum;
+    }
+
+    public void setEvaluationNum(int evaluationNum) {
+        this.evaluationNum = evaluationNum;
+    }
+
+    public String getPublishingCompany() {
+        return publishingCompany;
+    }
+
+    public void setPublishingCompany(String publishingCompany) {
+        this.publishingCompany = publishingCompany;
+    }
+
+    public int getReleaseYear() {
+        return releaseYear;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public BookType[] getBookTypes() {
+        return bookTypes;
+    }
+
+    public void setBookTypes(BookType[] bookTypes) {
+        this.bookTypes = bookTypes;
+    }
 }

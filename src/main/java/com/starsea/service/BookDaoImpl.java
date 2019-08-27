@@ -54,6 +54,7 @@ public class BookDaoImpl implements BookDao {
         Query query = Query.query(Criteria.where("isbn").is(book.getIsbn()));
         Update update = new Update();
         update.set("score", scoreTotal/count);
+        update.set("evaluationNum", count);
         mongoTemplate.updateFirst(query, update, "books");
     }
 

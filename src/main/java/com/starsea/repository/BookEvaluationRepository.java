@@ -6,7 +6,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
+
 public interface BookEvaluationRepository extends MongoRepository<BookEvaluation, ObjectId> {
-    public BookEvaluation findByIsbn(String isbn);
-    public BookEvaluation findByUsername(String username);
+    public List<BookEvaluation> findByIsbn(String isbn);
+    public List<BookEvaluation> findByUsername(String username);
 }
