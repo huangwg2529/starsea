@@ -1,20 +1,15 @@
 package com.starsea;
 
 import com.starsea.controller.sort.BookSortByEvaluation;
-import com.starsea.entity.Book;
-import com.starsea.entity.BookEvaluation;
-import com.starsea.entity.Movie;
-import com.starsea.entity.MovieEvaluation;
-import com.starsea.service.BookDao;
-import com.starsea.service.BookEvaluationDao;
-import com.starsea.service.MovieDao;
-import com.starsea.service.MovieEvaluationDao;
+import com.starsea.entity.*;
+import com.starsea.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -27,9 +22,38 @@ public class InitProject implements ApplicationRunner {
     private MovieDao movieDao;
     @Autowired
     private MovieEvaluationDao movieEvaluationDao;
+    @Autowired
+    private GroupDao groupDao;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        /**
+         * 小组测试
+        User creater = new User("huang", "huang");
+        Date now = new Date();
+        String createTime = String.format("", now);
+        String[] tags = {"MIUI", "校园"};
+        //Group(String name, String[] tags, String introduction, String createTime, User groupLeader)
+        Group group = new Group("MIUI校园俱乐部", tags, "这里是北航MIUI校园俱乐部", createTime, creater);
+        //groupDao.addGroup(group);
+        List<Group> groups = groupDao.getGroupByTag("MIUI");
+        for(int i=0; i<groups.size(); i++) {
+            System.out.println(groups.get(i).getName());
+        }
+        List<Group> groups1 = groupDao.getGroupByKeyword("MI");
+        for(int i=0; i<groups.size(); i++) {
+            System.out.println(groups1.get(i).getName());
+        }
+        //groupDao.addGroupMember(groupDao.getGroupByName("MIUI校园俱乐部"), userDao.getUserByName("zz"));
+
+        //groupDao.addGroupMember(groupDao.getGroupByName("MIUI校园俱乐部"), "zz");
+        List<Movie> movie = movieDao.getMovieByKeyword("寄", "true");
+        //System.out.println(movie.get(0));
+        movieDao.updateMovieScore(movie.get(0));
+         */
+
         /**
          * 测试关键字查询
         List<Book> books = bookDao.getBookByKeyword("");
@@ -37,11 +61,6 @@ public class InitProject implements ApplicationRunner {
             System.out.println("name:" + books.get(i).getName() + "   author:" + books.get(i).getAuthor());
         }
          */
-
-        List<Movie> movie = movieDao.getMovieForIndex(3);
-        for(int i=0; i<movie.size(); i++) {
-            System.out.println(movie.get(i).getName() + "  " + movie.get(i).getScore());
-        }
 
         /**
          * 添加影评

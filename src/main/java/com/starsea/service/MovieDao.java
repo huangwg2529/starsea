@@ -17,22 +17,22 @@ public interface MovieDao {
      */
     public void updateMovieScore(Movie movie);
 
-    public Movie getMovieByName(String name);
+    public Movie getMovieByName(String name, String flag);
 
-    public Movie getMovieByDirector(String director);
+    public Movie getMovieByDirector(String director, String flag);
 
-    public List<Movie> getMovieByStars(String stars);
+    public List<Movie> getMovieByStars(String stars, String flag);
 
-    public Movie getMovieByRegion(Region region);
+    public Movie getMovieByRegion(String region, String flag);
 
-    public Movie getMovieByReleaseYear(int releaseYear);
+    public Movie getMovieByReleaseYear(int releaseYear, String flag);
 
-    public List<Movie> getMovieByKeyword(String keyword);
+    public List<Movie> getMovieByKeyword(String keyword, String flag);
 
     /**
      * 热门内容获取
      * 前端指定数量
      * @return
      */
-    public List<Movie> getMovieForIndex(int num);
+    public List<Movie> getMovieForIndex(int num, String flag);
 }

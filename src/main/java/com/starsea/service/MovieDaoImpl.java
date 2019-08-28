@@ -45,39 +45,59 @@ public class MovieDaoImpl implements MovieDao {
         Update update = new Update();
         update.set("score", scoreAvg);
         update.set("evaluationNum", count);
-        mongoTemplate.updateFirst(query, update, "movies");
+        mongoTemplate.updateFirst(query, update, Movie.class);
     }
 
-    public List<Movie> getMovieForIndex(int num) {
+    public List<Movie> getMovieForIndex(int num, String flag) {
         Sort.Order order = new Sort.Order(Sort.Direction.DESC, "score");
-        Query query = new Query();
+        Criteria criteria = Criteria.where("flag").is(flag);
+        Query query = new Query(criteria);
         //感谢：https://blog.csdn.net/john_1023/article/details/90522618
         query.with(Sort.by(order)).limit(num);
         return mongoTemplate.find(query, Movie.class);
     }
 
-    public Movie getMovieByName(String name) {
-        return movieRepository.findByName(name);
+    public Movie getMovieByName(String name, String flag) {
+        Criteria criteria = new Criteria();
+        criteria.andOperator(Criteria.where("name").is(name), Criteria.where("flag").is(flag));
+        Movie movie = mongoTemplate.findOne(new Query(criteria), Movie.class);
+        System.out.println(movie.getIntroduction());
+        return movie;
     }
 
-    public Movie getMovieByDirector(String director) {
-        return movieRepository.findByDirector(director);
+    public Movie getMovieByDirector(String director, String flag) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("director").is(director));
+        query.addCriteria(Criteria.where("flag").is(flag));
+        return mongoTemplate.findOne(query, Movie.class);
     }
 
-    public List<Movie> getMovieByStars(String stars) {
-        return movieRepository.findByStars(stars);
+    public List<Movie> getMovieByStars(String stars, String flag) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("stars").regex(stars));
+        query.addCriteria(Criteria.where("flag").is(flag));
+        return mongoTemplate.find(query, Movie.class);
     }
 
-    public Movie getMovieByRegion(Region region) {
-        return movieRepository.findByRegion(region);
+    public Movie getMovieByRegion(String region, String flag) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("region").is(region));
+        query.addCriteria(Criteria.where("flag").is(flag));
+        return mongoTemplate.findOne(query, Movie.class);
     }
 
-    public Movie getMovieByReleaseYear(int releaseYear) {
-        return movieRepository.findByReleaseYear(releaseYear);
+    public Movie getMovieByReleaseYear(int releaseYear, String flag) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("releaseYear").is(releaseYear));
+        query.addCriteria(Criteria.where("flag").is(flag));
+        return mongoTemplate.findOne(query, Movie.class);
     }
 
-    public List<Movie> getMovieByKeyword(String keyword) {
-        return movieRepository.findByNameLike(keyword);
+    public List<Movie> getMovieByKeyword(String keyword, String flag) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("name").regex(keyword));
+        query.addCriteria(Criteria.where("flag").is(flag));
+        return mongoTemplate.find(query, Movie.class);
     }
 
 }

@@ -37,7 +37,7 @@ public class searchController {
     @RequestMapping(value = "/api/searchMovie", method = RequestMethod.GET)
     @ResponseBody
     public List<Movie> searchMovieByKeyword(String keyword) {
-        List<Movie> movies = movieDao.getMovieByKeyword(keyword);
+        List<Movie> movies = movieDao.getMovieByKeyword(keyword, "true");
         Collections.sort(movies, new MovieSortByEvaluation());
         return movies;
     }

@@ -59,7 +59,7 @@ public class BookDaoImpl implements BookDao {
         update.set("evaluationNum", count);
         System.out.println(update);
         System.out.println(query);
-        mongoTemplate.updateFirst(query, update, "books");
+        mongoTemplate.updateFirst(query, update, Book.class);
     }
 
     //查

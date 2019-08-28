@@ -18,6 +18,12 @@ public class Movie implements Serializable {
      */
     private String name;
     /**
+     * 区分电影和电视剧
+     * true表示电影
+     * false表示电视剧
+     */
+    private String flag; //原本用boolean的但是无法查询，改成String就能查询了。。。
+    /**
      * 导演
      */
     private String director;
@@ -63,8 +69,9 @@ public class Movie implements Serializable {
     }
 
     @PersistenceConstructor
-    public Movie(String name, String director, String stars, String types, String region, String language, int releaseYear, String introduction) {
+    public Movie(String name, String flag, String director, String stars, String types, String region, String language, int releaseYear, String introduction) {
         this.name = name;
+        this.flag = flag;
         this.director = director;
         this.stars = stars;
         this.types = types;
@@ -88,6 +95,14 @@ public class Movie implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String isFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
     public String getDirector() {
