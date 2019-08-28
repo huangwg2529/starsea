@@ -49,12 +49,15 @@ public class BookDaoImpl implements BookDao {
         for(int i=0; i<count; i++) {
             scoreTotal += evaluations.get(i).getScore();
         }
-        //book.setScore(scoreTotal/count);
+        //保留一位小数
+        double scoreAvg = (double) Math.round(scoreTotal/count*10)/10;
         //更新数据库中的评分
         Query query = Query.query(Criteria.where("isbn").is(book.getIsbn()));
         Update update = new Update();
-        update.set("score", scoreTotal/count);
+        update.set("score", scoreAvg);
         update.set("evaluationNum", count);
+        System.out.println(update);
+        System.out.println(query);
         mongoTemplate.updateFirst(query, update, "books");
     }
 

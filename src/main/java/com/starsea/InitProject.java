@@ -1,12 +1,10 @@
 package com.starsea;
 
+import com.starsea.controller.sort.BookSortByEvaluation;
 import com.starsea.entity.Book;
 import com.starsea.entity.BookEvaluation;
 import com.starsea.entity.Movie;
 import com.starsea.entity.MovieEvaluation;
-import com.starsea.enums.BookType;
-import com.starsea.enums.Region;
-import com.starsea.enums.Type;
 import com.starsea.service.BookDao;
 import com.starsea.service.BookEvaluationDao;
 import com.starsea.service.MovieDao;
@@ -16,6 +14,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -38,6 +37,27 @@ public class InitProject implements ApplicationRunner {
             System.out.println("name:" + books.get(i).getName() + "   author:" + books.get(i).getAuthor());
         }
          */
+
+        /**
+         * 添加影评
+        Movie movie = movieDao.getMovieByName("流浪地球");
+        MovieEvaluation movieEvaluation = new MovieEvaluation("1", movie.getMovieId(), 4.5, "超好看的");
+        MovieEvaluation movieEvaluation1 = new MovieEvaluation("zz", movie.getMovieId(), 5.0, "超好看的啊");
+        movieEvaluationDao.addMovieEvaluation(movieEvaluation);
+        movieEvaluationDao.addMovieEvaluation(movieEvaluation1);
+        movieDao.updateMovieScore(movie);
+        bookDao.updateBookScore(bookDao.getBookByName("mathbook"));
+         */
+
+        /**
+        List<Book> books = bookDao.getBookByKeyword("数");
+        Collections.sort(books, new BookSortByEvaluation());
+        for(int i=0; i<books.size(); i++) {
+            System.out.println("book:" + books.get(i).getName() + "  score:" + books.get(i).getScore());
+        }
+
+        System.out.println("init finished");
+        */
 
         /**
         BookType[] types = {BookType.EDUCATION};

@@ -37,9 +37,11 @@ public class MovieDaoImpl implements MovieDao {
         for(int i=0; i<count; i++) {
             scoreTotal += evaluations.get(i).getScore();
         }
+        //保留一位小数
+        double scoreAvg = (double) Math.round(scoreTotal/count*10)/10;
         Query query = Query.query(Criteria.where("movieId").is(movie.getMovieId()));
         Update update = new Update();
-        update.set("score", scoreTotal/count);
+        update.set("score", scoreAvg);
         update.set("evaluationNum", count);
         mongoTemplate.updateFirst(query, update, "movies");
     }

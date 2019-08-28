@@ -40,7 +40,7 @@ public class Book implements Serializable {
     /**
      * 地区
      */
-    private Region region;
+    private String region;
     /**
      * 语言
      */
@@ -48,7 +48,7 @@ public class Book implements Serializable {
     /**
      * 类型
      */
-    private BookType[] bookTypes;
+    private String bookTypes;
     /**
      * 图片地址
      */
@@ -75,7 +75,7 @@ public class Book implements Serializable {
     }
 
     @PersistenceConstructor
-    public Book(String isbn, String name, String author, String publishingCompany, int releaseYear, Region region, String language, BookType[] bookTypes, String imgAddr, double price, String introduction) {
+    public Book(String isbn, String name, String author, String publishingCompany, int releaseYear, String region, String language, String bookTypes, String imgAddr, double price, String introduction) {
         this.isbn = isbn;
         this.name = name;
         this.author = author;
@@ -177,19 +177,19 @@ public class Book implements Serializable {
         this.releaseYear = releaseYear;
     }
 
-    public Region getRegion() {
+    public String getRegion() {
         return region;
     }
 
-    public void setRegion(Region region) {
+    public void setRegion(String region) {
         this.region = region;
     }
 
-    public BookType[] getBookTypes() {
+    public String getBookTypes() {
         return bookTypes;
     }
 
-    public void setBookTypes(BookType[] bookTypes) {
+    public void setBookTypes(String bookTypes) {
         this.bookTypes = bookTypes;
     }
 
