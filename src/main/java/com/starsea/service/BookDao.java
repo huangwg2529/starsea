@@ -22,4 +22,11 @@ public interface BookDao {
 
     public Book getBookByAuthor(String author);
 
+    /**
+     * 热门内容获取
+     * 前端指定数量
+     * @return
+     */
+    public List<Book> getBookForIndex(int num);
+
 }

@@ -18,6 +18,13 @@ public class showMovieController {
     private MovieEvaluationDao movieEvaluationDao;
 
     @CrossOrigin
+    @RequestMapping(value = "/api/showMovieIndex", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Movie> showMovieIndex(Integer num) {
+        return movieDao.getMovieForIndex(num);
+    }
+
+    @CrossOrigin
     @RequestMapping(value = "/api/showMovie", method = RequestMethod.GET)
     @ResponseBody
     public Movie showMovie(String name) {

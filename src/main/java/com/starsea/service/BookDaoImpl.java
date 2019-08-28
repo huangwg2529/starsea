@@ -4,6 +4,7 @@ import com.starsea.entity.Book;
 import com.starsea.entity.BookEvaluation;
 import com.starsea.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -83,6 +84,14 @@ public class BookDaoImpl implements BookDao {
         Query query = Query.query(Criteria.where("name").regex(keyword));
         List<Book> books = mongoTemplate.find(query, Book.class);
         return books;
+    }
+
+    public List<Book> getBookForIndex(int num) {
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "score");
+        Query query = new Query();
+        //感谢：https://blog.csdn.net/john_1023/article/details/90522618
+        query.with(Sort.by(order)).limit(num);
+        return mongoTemplate.find(query, Book.class);
     }
 
 

@@ -38,6 +38,11 @@ public class InitProject implements ApplicationRunner {
         }
          */
 
+        List<Movie> movie = movieDao.getMovieForIndex(3);
+        for(int i=0; i<movie.size(); i++) {
+            System.out.println(movie.get(i).getName() + "  " + movie.get(i).getScore());
+        }
+
         /**
          * 添加影评
         Movie movie = movieDao.getMovieByName("流浪地球");

@@ -28,4 +28,11 @@ public interface MovieDao {
     public Movie getMovieByReleaseYear(int releaseYear);
 
     public List<Movie> getMovieByKeyword(String keyword);
+
+    /**
+     * 热门内容获取
+     * 前端指定数量
+     * @return
+     */
+    public List<Movie> getMovieForIndex(int num);
 }

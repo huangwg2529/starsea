@@ -5,6 +5,8 @@ import com.starsea.entity.MovieEvaluation;
 import com.starsea.enums.Region;
 import com.starsea.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -44,6 +46,14 @@ public class MovieDaoImpl implements MovieDao {
         update.set("score", scoreAvg);
         update.set("evaluationNum", count);
         mongoTemplate.updateFirst(query, update, "movies");
+    }
+
+    public List<Movie> getMovieForIndex(int num) {
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "score");
+        Query query = new Query();
+        //感谢：https://blog.csdn.net/john_1023/article/details/90522618
+        query.with(Sort.by(order)).limit(num);
+        return mongoTemplate.find(query, Movie.class);
     }
 
     public Movie getMovieByName(String name) {
