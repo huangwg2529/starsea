@@ -43,7 +43,7 @@ public class showMovieController {
     @RequestMapping(value = "/api/showTV", method = RequestMethod.GET)
     @ResponseBody
     public Movie showTV(String name) {
-        Movie movie = movieDao.getMovieByName(name, "true");
+        Movie movie = movieDao.getMovieByName(name, "false");
         return movie;
     }
 
