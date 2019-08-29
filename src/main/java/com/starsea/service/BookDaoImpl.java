@@ -44,7 +44,7 @@ public class BookDaoImpl implements BookDao {
 
     //更新评分，每新增一个评论就要更新
     public void updateBookScore(Book book) {
-        List<BookEvaluation> evaluations = bookEvaluationDao.getBookEvaluationByIsbn(book.getIsbn());
+        List<BookEvaluation> evaluations = bookEvaluationDao.getBookEvaluationByIsbn(book.getIsbn(), 1);
         int count = evaluations.size();
         double scoreTotal = 0;
         for(int i=0; i<count; i++) {

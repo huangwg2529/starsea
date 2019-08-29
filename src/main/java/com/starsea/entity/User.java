@@ -26,6 +26,8 @@ public class User implements Serializable {
     private String password;
     @Field
     private String email;
+    @Field
+    private String imgAddr = "http://114.115.131.124:8666/image/book/test.png";
 
     public User() {
 
@@ -59,5 +61,21 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getImgAddr() {
+        return imgAddr;
+    }
+
+    public void setImgAddr(String imgAddr) {
+        this.imgAddr = imgAddr;
     }
 }

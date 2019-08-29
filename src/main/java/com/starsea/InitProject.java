@@ -26,14 +26,63 @@ public class InitProject implements ApplicationRunner {
     private GroupDao groupDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private PostDao postDao;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+
+        /*
+        Date create = new Date();
+        String time = String.format("%tY年%<tm月%<td日", create) + " " + String.format("%tT", create);
+        //Post(String title, String username, String imgAddr, String mainBody, String time)
+        String mainBody = "只是用于测试的，所以没有25字限制";
+        Post post = new Post("第一个帖子！", "hwg", "http://114.115.131.124:8666/image/book/test.png", mainBody, time);
+        //postDao.addPost(post);
+        //postDao.updateIsTop(post, 1);
+        //Discuss(String replierName, String imgAddr, String beReplierName, String time, String mainBody)
+        Discuss discuss = new Discuss("zz", "http://114.115.131.124:8666/image/book/test.png", "hwg", time, "沙发！");
+        postDao.addDiscuss(postDao.getPostByIsTop().get(0), discuss);
+        List<Post> posts = postDao.getPostByIsTop();
+        for(int i=0; i<posts.size(); i++) {
+            System.out.println(posts.get(i).getDiscuss().get(0).getMainBody());
+        }
+         */
+
+        Book yourname = bookDao.getBookByName("数学分析原理");
+        /*
+        //BookEvaluation(String username, String isbn, double score, String evaluation)
+
+        BookEvaluation bookEvaluation1 = new BookEvaluation("hwg", yourname.getIsbn(), 4.2, "这只是测试用的啊");
+        BookEvaluation bookEvaluation2 = new BookEvaluation("hwg", yourname.getIsbn(), 4.2, "这只是测试用的啊啊");
+        BookEvaluation bookEvaluation3 = new BookEvaluation("hwg", yourname.getIsbn(), 4.2, "这只是测试用的啊啊啊");
+
+        bookEvaluationDao.addBookEvaluation(bookEvaluation1);
+        bookEvaluationDao.addBookEvaluation(bookEvaluation2);
+        bookEvaluationDao.addBookEvaluation(bookEvaluation3);
+
+        List<BookEvaluation> bes = bookEvaluationDao.getBookEvaluationByIsbn(yourname.getIsbn(), 1);
+        for(int i=0; i<bes.size(); i++) {
+            System.out.println(bes.get(i).getLikeNum() + bes.get(i).getTime() + bes.get(i).getEvaluation());
+        }
+        bes = bookEvaluationDao.getBookEvaluationByIsbn(yourname.getIsbn(), 2);
+        for(int i=0; i<bes.size(); i++) {
+            System.out.println(bes.get(i).getLikeNum() + bes.get(i).getTime() + bes.get(i).getEvaluation());
+        }
+         */
+
+
+
+        Date now = new Date();
+        String createTime = String.format("%tY-%<tm-%<td", now);  //2010-10-4
+        String createTime2 = String.format("%tY年%<tm月%<td日", now) + " " + String.format("%tT", now);//2010年10月4日 17:31:11
+        System.out.println(createTime + "   " + createTime2);
+
+
         /**
          * 小组测试
         User creater = new User("huang", "huang");
-        Date now = new Date();
-        String createTime = String.format("", now);
+
         String[] tags = {"MIUI", "校园"};
         //Group(String name, String[] tags, String introduction, String createTime, User groupLeader)
         Group group = new Group("MIUI校园俱乐部", tags, "这里是北航MIUI校园俱乐部", createTime, creater);

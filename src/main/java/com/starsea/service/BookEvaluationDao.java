@@ -13,5 +13,18 @@ public interface BookEvaluationDao {
 
     public List<BookEvaluation> getBookEvaluationByUsername(String username);
 
-    public List<BookEvaluation> getBookEvaluationByIsbn(String isbn);
+    /**
+     * 获取书评
+     * @param isbn
+     * @param flag 1表示按点赞数，2表示按时间
+     * @return
+     */
+    public List<BookEvaluation> getBookEvaluationByIsbn(String isbn, int flag);
+
+    /**
+     * 更新点赞数
+     * @param bookEvaluation
+     * @param flag 1为增，-1为减
+     */
+    public void updateLikeNum(BookEvaluation bookEvaluation, int flag);
 }

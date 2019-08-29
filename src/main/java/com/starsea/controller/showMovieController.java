@@ -50,16 +50,16 @@ public class showMovieController {
     @CrossOrigin
     @RequestMapping(value = "/api/showMovieEvaluation", method = RequestMethod.GET)
     @ResponseBody
-    public List<MovieEvaluation> showMovieEvaluation(String name) {
+    public List<MovieEvaluation> showMovieEvaluation(String name, int flag) {
         Movie movie = movieDao.getMovieByName(name, "true");
-        return movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId());
+        return movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), flag);
     }
 
     @CrossOrigin
     @RequestMapping(value = "/api/showTVEvaluation", method = RequestMethod.GET)
     @ResponseBody
-    public List<MovieEvaluation> showTVEvaluation(String name) {
+    public List<MovieEvaluation> showTVEvaluation(String name, int flag) {
         Movie movie = movieDao.getMovieByName(name, "false");
-        return movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId());
+        return movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), flag);
     }
 }

@@ -33,7 +33,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     public void updateMovieScore(Movie movie) {
-        List<MovieEvaluation> evaluations = movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId());
+        List<MovieEvaluation> evaluations = movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), 1);
         int count = evaluations.size();
         double scoreTotal = 0;
         for(int i=0; i<count; i++) {

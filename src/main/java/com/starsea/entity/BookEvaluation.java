@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Document(collection = "bookevaluations")
 public class BookEvaluation implements Serializable {
@@ -16,9 +17,20 @@ public class BookEvaluation implements Serializable {
 
     private String isbn;
 
+    private Date date;
+
+    /**
+     * 添加以前端便于使用
+     */
+    private String time;
+
     private double score;
 
     private String evaluation;
+    /**
+     * 点赞数
+     */
+    private int likeNum;
 
     public BookEvaluation() {
 
@@ -29,6 +41,9 @@ public class BookEvaluation implements Serializable {
         this.isbn = isbn;
         this.score = score;
         this.evaluation = evaluation;
+        date = new Date();
+        time = String.format("%tY年%<tm月%<td日", date) + " " + String.format("%tT", date);//2010年10月4日 17:31:11
+        likeNum = 0;
     }
 
     public String getUsername() {
@@ -55,6 +70,26 @@ public class BookEvaluation implements Serializable {
         this.isbn = isbn;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
     public double getScore() {
         return score;
     }
@@ -69,5 +104,13 @@ public class BookEvaluation implements Serializable {
 
     public void setEvaluation(String evaluation) {
         this.evaluation = evaluation;
+    }
+
+    public int getLikeNum() {
+        return likeNum;
+    }
+
+    public void setLikeNum(int likeNum) {
+        this.likeNum = likeNum;
     }
 }

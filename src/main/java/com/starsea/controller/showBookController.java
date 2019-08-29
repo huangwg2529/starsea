@@ -1,7 +1,9 @@
 package com.starsea.controller;
 
 import com.starsea.entity.Book;
+import com.starsea.entity.BookEvaluation;
 import com.starsea.service.BookDao;
+import com.starsea.service.BookEvaluationDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,8 @@ import java.util.List;
 public class showBookController {
     @Autowired
     private BookDao bookDao;
+    @Autowired
+    private BookEvaluationDao bookEvaluationDao;
 
     @CrossOrigin
     @RequestMapping(value = "/api/showBook", method = RequestMethod.GET)
@@ -27,5 +31,13 @@ public class showBookController {
     @ResponseBody
     public List<Book> showBookIndex(Integer num) {
         return bookDao.getBookForIndex(num);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/showBookEvaluation", method = RequestMethod.GET)
+    @ResponseBody
+    public List<BookEvaluation> showTVEvaluation(String name, int flag) {
+        Book book = bookDao.getBookByName(name);
+        return bookEvaluationDao.getBookEvaluationByIsbn(book.getIsbn(), flag);
     }
 }

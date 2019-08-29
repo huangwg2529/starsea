@@ -14,5 +14,18 @@ public interface MovieEvaluationDao {
 
     public List<MovieEvaluation> getMovieEvaluationByUsername(String username);
 
-    public List<MovieEvaluation> getMovieEvaluationByMovieId(ObjectId movieId);
+    /**
+     * 获取影评
+     * @param movieId
+     * @param flag 1表示按点赞数，2表示按时间
+     * @return
+     */
+    public List<MovieEvaluation> getMovieEvaluationByMovieId(ObjectId movieId, int flag);
+
+    /**
+     * 更新点赞数
+     * @param movieEvaluation
+     * @param flag 1为增，-1为减
+     */
+    public void updateLikeNum(MovieEvaluation movieEvaluation, int flag);
 }
