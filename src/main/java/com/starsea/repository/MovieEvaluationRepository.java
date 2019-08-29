@@ -11,4 +11,6 @@ public interface MovieEvaluationRepository extends MongoRepository<MovieEvaluati
 
     public List<MovieEvaluation> findByMovieId(ObjectId movieId);
 
+    public MovieEvaluation findByMeId(ObjectId meId);
+
 }

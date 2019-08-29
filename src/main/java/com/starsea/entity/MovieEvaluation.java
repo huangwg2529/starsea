@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Document(collection = "movieevaluations")
 public class MovieEvaluation implements Serializable {
@@ -26,6 +27,11 @@ public class MovieEvaluation implements Serializable {
     private String evaluation;
 
     private int likeNum;
+
+    /**
+     * 记录点赞用户
+     */
+    private List<String> starUsername;
 
     public MovieEvaluation() {
 
@@ -104,5 +110,13 @@ public class MovieEvaluation implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<String> getStarUsername() {
+        return starUsername;
+    }
+
+    public void setStarUsername(List<String> starUsername) {
+        this.starUsername = starUsername;
     }
 }

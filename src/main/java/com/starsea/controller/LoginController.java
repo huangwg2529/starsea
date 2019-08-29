@@ -1,7 +1,13 @@
 package com.starsea.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.starsea.service.ServiceContactService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,6 +25,11 @@ import java.util.*;
 public class LoginController {
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private ServiceContactService serviceContactService;
+
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @CrossOrigin
     @RequestMapping(value = "/api/login", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
@@ -80,11 +91,11 @@ public class LoginController {
         boolean wordFlag = false;
         boolean numFlag = false;
         for(int i=0; i<len; i++) {
-            if(arr[i]>'0' || arr[i]<'9') {
+            if(arr[i]>'0' && arr[i]<'9') {
                 numFlag = true;
-            } else if(arr[i]>'a' || arr[i]<'z') {
+            } else if(arr[i]>'a' && arr[i]<'z') {
                 wordFlag = true;
-            } else if(arr[i]>'A' || arr[i]<'Z') {
+            } else if(arr[i]>'A' && arr[i]<'Z') {
                 wordFlag = true;
             }
         }
@@ -102,4 +113,21 @@ public class LoginController {
         String message = "注册失败，用户名已存在。";
         return ResultFactory.buildFailResult(message);
     }
+
+    /**
+     * 生成验证码
+     */
+    @GetMapping("/getVerify")
+    public void getVerify(HttpServletRequest request, HttpServletResponse response) {
+        serviceContactService.getVerify(request, response);
+    }
+
+    /**
+     * 忘记密码页面校验验证码
+     */
+    @PostMapping("/checkVerify")
+    public boolean checkVerify(@RequestParam String verifyInput, HttpSession session) {
+        return serviceContactService.checkVerify(verifyInput, session);
+    }
+
 }
