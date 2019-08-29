@@ -36,8 +36,17 @@ public class showBookController {
     @CrossOrigin
     @RequestMapping(value = "/api/showBookEvaluation", method = RequestMethod.GET)
     @ResponseBody
-    public List<BookEvaluation> showTVEvaluation(String name, int flag) {
+    public List<BookEvaluation> showBookEvaluation(String name, int flag) {
         Book book = bookDao.getBookByName(name);
         return bookEvaluationDao.getBookEvaluationByIsbn(book.getIsbn(), flag);
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/showOneBookEvaluation", method = RequestMethod.GET)
+    @ResponseBody
+    public BookEvaluation showOneBookEvaluation(String name) {
+        Book book = bookDao.getBookByName(name);
+        return bookEvaluationDao.getBookEvaluationByIsbn(book.getIsbn(), 2).get(0);
+    }
+
 }
