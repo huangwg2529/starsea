@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
+import java.util.List;
 
 import static org.springframework.data.mongodb.core.index.IndexDirection.ASCENDING;
 import static org.springframework.data.mongodb.core.index.IndexDirection.DESCENDING;
@@ -28,6 +29,10 @@ public class User implements Serializable {
     private String email;
     @Field
     private String imgAddr = "http://114.115.131.124:8666/image/book/test.png";
+
+    private List<Movie> collectMovies;
+
+    private List<Book> collectBooks;
 
     public User() {
 

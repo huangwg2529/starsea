@@ -4,6 +4,7 @@ import com.starsea.entity.Movie;
 import com.starsea.entity.MovieEvaluation;
 import com.starsea.service.MovieDao;
 import com.starsea.service.MovieEvaluationDao;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -62,4 +63,25 @@ public class showMovieController {
         Movie movie = movieDao.getMovieByName(name, "false");
         return movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), flag);
     }
+
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/addMovieEvaluation", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String addBookEvaluation(@RequestBody String username, @RequestBody ObjectId movieId, @RequestBody double score, @RequestBody String evaluation) {
+        if(evaluation.length() < 25) {
+            return "评论失败，请输入25个字符或以上的内容！";
+        }
+        MovieEvaluation movieEvaluation = new MovieEvaluation(username, movieId, score, evaluation);
+        movieEvaluationDao.addMovieEvaluation(movieEvaluation);
+        return "SUCCESS";
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/MovieEvaluationIsStar", method = RequestMethod.GET)
+    @ResponseBody
+    public int movieEvaluationIsStar(ObjectId meId, String username) {
+        return movieEvaluationDao.movieEvaluationIsStar(movieEvaluationDao.getMovieEvaluationByMeId(meId), username);
+    }
+
 }

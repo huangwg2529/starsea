@@ -117,7 +117,7 @@ public class LoginController {
     /**
      * 生成验证码
      */
-    @GetMapping("/getVerify")
+    @GetMapping("/api/getVerify")
     public void getVerify(HttpServletRequest request, HttpServletResponse response) {
         serviceContactService.getVerify(request, response);
     }
@@ -125,7 +125,7 @@ public class LoginController {
     /**
      * 忘记密码页面校验验证码
      */
-    @PostMapping("/checkVerify")
+    @PostMapping("/api/checkVerify")
     public boolean checkVerify(@RequestParam String verifyInput, HttpSession session) {
         return serviceContactService.checkVerify(verifyInput, session);
     }

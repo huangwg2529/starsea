@@ -1,5 +1,6 @@
 package com.starsea.service;
 
+import com.starsea.entity.Movie;
 import com.starsea.entity.MovieEvaluation;
 import com.starsea.repository.MovieEvaluationRepository;
 import org.bson.types.ObjectId;
@@ -34,6 +35,10 @@ public class MovieEvaluationDaoImpl implements MovieEvaluationDao {
         return mongoTemplate.find(new Query(Criteria.where("username").is(username)), MovieEvaluation.class);
     }
 
+    public MovieEvaluation getMovieEvaluationByMeId(ObjectId meId) {
+        return movieEvaluationRepository.findByMeId(meId);
+    }
+
     public List<MovieEvaluation> getMovieEvaluationByMovieId(ObjectId movieId, int flag) {
         Sort.Order order;
         if(flag == 1) {
@@ -52,5 +57,14 @@ public class MovieEvaluationDaoImpl implements MovieEvaluationDao {
         Update update = new Update();
         update.set("likeNum", movieEvaluation.getLikeNum()+flag);
         mongoTemplate.updateFirst(query, update, MovieEvaluation.class);
+    }
+
+    @Override
+    public int movieEvaluationIsStar(MovieEvaluation movieEvaluation, String username) {
+        List<String> starUsernames = movieEvaluation.getStarUsername();
+        if(starUsernames.contains(username)) {
+            return 1;
+        }
+        return 0;
     }
 }

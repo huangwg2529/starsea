@@ -14,6 +14,8 @@ public interface MovieEvaluationDao {
 
     public List<MovieEvaluation> getMovieEvaluationByUsername(String username);
 
+    public MovieEvaluation getMovieEvaluationByMeId(ObjectId meId);
+
     /**
      * 获取影评
      * @param movieId
@@ -28,4 +30,12 @@ public interface MovieEvaluationDao {
      * @param flag 1为增，-1为减
      */
     public void updateLikeNum(MovieEvaluation movieEvaluation, int flag);
+
+    /**
+     * 判断某位用户是否已经给这个评论点赞
+     * @param movieEvaluation
+     * @param username
+     * @return
+     */
+    public int movieEvaluationIsStar(MovieEvaluation movieEvaluation, String username);
 }
