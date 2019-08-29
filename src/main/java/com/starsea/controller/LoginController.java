@@ -2,8 +2,6 @@ package com.starsea.controller;
 
 import javax.validation.Valid;
 
-import com.starsea.entity.Book;
-import com.starsea.service.BookDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,9 +19,6 @@ import java.util.*;
 public class LoginController {
     @Autowired
     private UserDao userDao;
-
-    @Autowired
-    private BookDao bookDao;
 
     @CrossOrigin
     @RequestMapping(value = "/api/login", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
@@ -71,16 +66,40 @@ public class LoginController {
         String username = loginInfoVo.getUsername();
         String password = loginInfoVo.getPassword();
 
-        System.out.println(username + "  register");
+        if(username.length()<3 || username.length()>12) {
+            String message = "注册失败，用户名必须是3-12个字符！";
+            return ResultFactory.buildFailResult(message);
+        }
+
+        char[] arr = password.toCharArray();
+        int len = arr.length;
+        if(len < 8 || len >16) {
+            String message = "注册失败，密码必须是8-16个字符！";
+            return ResultFactory.buildFailResult(message);
+        }
+        boolean wordFlag = false;
+        boolean numFlag = false;
+        for(int i=0; i<len; i++) {
+            if(arr[i]>'0' || arr[i]<'9') {
+                numFlag = true;
+            } else if(arr[i]>'a' || arr[i]<'z') {
+                wordFlag = true;
+            } else if(arr[i]>'A' || arr[i]<'Z') {
+                wordFlag = true;
+            }
+        }
+        if(!(wordFlag&&numFlag)) {
+            String message = "注册失败，密码必须同时包含字母和数字！";
+            return ResultFactory.buildFailResult(message);
+        }
 
         User findUser = userDao.getUserByName(username);
-        //User findUser = mongoTemplate.findOne(new Query(Criteria.where("username").is(username)), User.class);
         if(findUser==null || !Objects.equals(findUser.getUsername(), username)) {
             User newUser = new User(username, password);
             userDao.addUser(newUser);
             return ResultFactory.buildSuccessResult("注册成功。");
         }
-        String message = String.format("注册失败，用户名已存在。");
+        String message = "注册失败，用户名已存在。";
         return ResultFactory.buildFailResult(message);
     }
 }

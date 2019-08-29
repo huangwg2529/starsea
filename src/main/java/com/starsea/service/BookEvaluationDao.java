@@ -1,6 +1,7 @@
 package com.starsea.service;
 
 import com.starsea.entity.BookEvaluation;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface BookEvaluationDao {
     public void deleteBookEvaluation(BookEvaluation bookEvaluation);
 
     public List<BookEvaluation> getBookEvaluationByUsername(String username);
+
+    public BookEvaluation getBookEvaluationByBeId(ObjectId beId);
 
     /**
      * 获取书评
@@ -26,5 +29,13 @@ public interface BookEvaluationDao {
      * @param bookEvaluation
      * @param flag 1为增，-1为减
      */
-    public void updateLikeNum(BookEvaluation bookEvaluation, int flag);
+    public void updateLikeNum(BookEvaluation bookEvaluation, String username, int flag);
+
+    /**
+     * 判断某位用户是否已经给这个评论点赞
+     * @param bookEvaluation
+     * @param username
+     * @return
+     */
+    public int bookEvaluationIsStar(BookEvaluation bookEvaluation, String username);
 }

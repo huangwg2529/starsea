@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Document(collection = "bookevaluations")
 public class BookEvaluation implements Serializable {
@@ -31,6 +32,11 @@ public class BookEvaluation implements Serializable {
      * 点赞数
      */
     private int likeNum;
+
+    /**
+     * 记录点赞用户
+     */
+    private List<String> starUsername;
 
     public BookEvaluation() {
 
@@ -112,5 +118,13 @@ public class BookEvaluation implements Serializable {
 
     public void setLikeNum(int likeNum) {
         this.likeNum = likeNum;
+    }
+
+    public List<String> getStarUsername() {
+        return starUsername;
+    }
+
+    public void setStarUsername(List<String> starUsername) {
+        this.starUsername = starUsername;
     }
 }

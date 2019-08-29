@@ -3,6 +3,7 @@ package com.starsea.service;
 import com.starsea.entity.Book;
 import com.starsea.entity.BookEvaluation;
 import com.starsea.repository.BookEvaluationRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -46,11 +47,28 @@ public class BookEvaluationDaoImpl implements BookEvaluationDao {
     }
 
     @Override
-    public void updateLikeNum(BookEvaluation bookEvaluation, int flag) {
+    public BookEvaluation getBookEvaluationByBeId(ObjectId beId) {
+        return bookEvaluationRepository.findByBeId(beId);
+    }
+
+    @Override
+    public void updateLikeNum(BookEvaluation bookEvaluation, String username, int flag) {
         Query query = new Query(Criteria.where("beId").is(bookEvaluation.getBeId()));
+        List<String> starUsers = bookEvaluation.getStarUsername();
+        starUsers.add(username);
         Update update = new Update();
         update.set("likeNum", bookEvaluation.getLikeNum()+flag);
+        update.set("starUsername", starUsers);
         mongoTemplate.updateFirst(query, update, BookEvaluation.class);
+    }
+
+    @Override
+    public int bookEvaluationIsStar(BookEvaluation bookEvaluation, String username) {
+        List<String> starUsernames = bookEvaluation.getStarUsername();
+        if(starUsernames.contains(username)) {
+            return 1;
+        }
+        return 0;
     }
 }
 

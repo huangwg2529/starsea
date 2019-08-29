@@ -11,4 +11,5 @@ import java.util.List;
 public interface BookEvaluationRepository extends MongoRepository<BookEvaluation, ObjectId> {
     public List<BookEvaluation> findByIsbn(String isbn);
     public List<BookEvaluation> findByUsername(String username);
+    public BookEvaluation findByBeId(ObjectId beId);
 }
