@@ -68,11 +68,12 @@ public class showMovieController {
     @CrossOrigin
     @RequestMapping(value = "/api/addMovieEvaluation", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String addBookEvaluation(@RequestBody String username, @RequestBody ObjectId movieId, @RequestBody double score, @RequestBody String evaluation) {
+    public String addBookEvaluation(@RequestBody String username, @RequestBody ObjectId movieId, @RequestBody String score, @RequestBody String evaluation) {
         if(evaluation.length() < 25) {
             return "评论失败，请输入25个字符或以上的内容！";
         }
-        MovieEvaluation movieEvaluation = new MovieEvaluation(username, movieId, score, evaluation);
+        double scoreD = Double.parseDouble(score);
+        MovieEvaluation movieEvaluation = new MovieEvaluation(username, movieId, scoreD, evaluation);
         movieEvaluationDao.addMovieEvaluation(movieEvaluation);
         return "SUCCESS";
     }

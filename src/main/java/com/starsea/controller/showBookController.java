@@ -7,7 +7,6 @@ import com.starsea.service.BookEvaluationDao;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,11 +53,15 @@ public class showBookController {
     @CrossOrigin
     @RequestMapping(value = "/api/addBookEvaluation", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String addBookEvaluation(@RequestBody String username, @RequestBody String isbn, @RequestBody double score, @RequestBody String evaluation) {
+    public String addBookEvaluation(@RequestBody String username, @RequestBody String isbn, @RequestBody String score, @RequestBody String evaluation) {
         if(evaluation.length() < 25) {
-            return "评论失败，请输入25个字符或以上的内容！";
+            return "请输入25个字符或以上的内容！";
         }
-        BookEvaluation bookEvaluation = new BookEvaluation(username, isbn, score, evaluation);
+        if(bookEvaluationDao.getBookEvaluationByUsernameAndIsbn(username, isbn) != null) {
+            return "您已评论过此图书！";
+        }
+        double scoreD = Double.parseDouble(score);
+        BookEvaluation bookEvaluation = new BookEvaluation(username, isbn, scoreD, evaluation);
         bookEvaluationDao.addBookEvaluation(bookEvaluation);
         return "SUCCESS";
     }
@@ -74,8 +77,9 @@ public class showBookController {
     @CrossOrigin
     @RequestMapping(value = "/api/starBookEvaluation", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String starBookEvaluation(@RequestBody ObjectId beId, @RequestBody String username, int flag) {
-        bookEvaluationDao.updateLikeNum(bookEvaluationDao.getBookEvaluationByBeId(beId), username, flag);
+    public String starBookEvaluation(@RequestBody ObjectId beId, @RequestBody String username, String flag) {
+        int flags = Integer.parseInt(flag);
+        bookEvaluationDao.updateLikeNum(bookEvaluationDao.getBookEvaluationByBeId(beId), username, flags);
         return "SUCCESS";
     }
 }

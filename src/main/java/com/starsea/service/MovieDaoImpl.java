@@ -4,6 +4,7 @@ import com.starsea.entity.Movie;
 import com.starsea.entity.MovieEvaluation;
 import com.starsea.enums.Region;
 import com.starsea.repository.MovieRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Sort;
@@ -65,6 +66,10 @@ public class MovieDaoImpl implements MovieDao {
         return movie;
     }
 
+    public Movie getMovieByMovieId(ObjectId movieId) {
+        return mongoTemplate.findOne(new Query(Criteria.where("movieId").is(movieId)), Movie.class);
+    }
+
     public Movie getMovieByDirector(String director, String flag) {
         Query query = new Query();
         query.addCriteria(Criteria.where("director").is(director));
@@ -94,9 +99,11 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     public List<Movie> getMovieByKeyword(String keyword, String flag) {
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "score");
         Query query = new Query();
         query.addCriteria(Criteria.where("name").regex(keyword));
         query.addCriteria(Criteria.where("flag").is(flag));
+        query.with(Sort.by(order));
         return mongoTemplate.find(query, Movie.class);
     }
 

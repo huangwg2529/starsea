@@ -1,6 +1,5 @@
 package com.starsea;
 
-import com.starsea.controller.sort.BookSortByEvaluation;
 import com.starsea.entity.*;
 import com.starsea.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -70,6 +68,11 @@ public class InitProject implements ApplicationRunner {
             System.out.println(bes.get(i).getLikeNum() + bes.get(i).getTime() + bes.get(i).getEvaluation());
         }
          */
+
+        List<Movie> movies = movieDao.getMovieByKeyword("", "true");
+        for(int i=0; i<movies.size(); i++) {
+            System.out.println(movies.get(i).getName() + movies.get(i).getScore());
+        }
 
 
 

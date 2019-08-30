@@ -24,6 +24,8 @@ public class BookEvaluationDaoImpl implements BookEvaluationDao {
     public void addBookEvaluation(BookEvaluation bookEvaluation) {
         bookEvaluationRepository.insert(bookEvaluation);
         //新增评论的同时更新评分
+        //添加到用户列表
+        //需要添加
     }
 
     public void deleteBookEvaluation(BookEvaluation bookEvaluation) {
@@ -44,6 +46,13 @@ public class BookEvaluationDaoImpl implements BookEvaluationDao {
         Query query = new Query(Criteria.where("isbn").is(isbn));
         query.with(Sort.by(order));
         return mongoTemplate.find(query, BookEvaluation.class);
+    }
+
+    public BookEvaluation getBookEvaluationByUsernameAndIsbn(String username, String isbn) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("username").is(username));
+        query.addCriteria(Criteria.where("isbn").is(isbn));
+        return mongoTemplate.findOne(query, BookEvaluation.class);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.starsea.service;
 import com.starsea.entity.Book;
 import com.starsea.entity.BookEvaluation;
 import com.starsea.repository.BookRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -78,10 +79,17 @@ public class BookDaoImpl implements BookDao {
         return bookRepository.findByAuthor(author);
     }
 
+    @Override
+    public Book getBookByBookId(ObjectId Id) {
+        return mongoTemplate.findOne(new Query(Criteria.where("Id").is(Id)), Book.class);
+    }
+
     //关键字查询
     @Override
     public List<Book> getBookByKeyword(String keyword){
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "score");
         Query query = Query.query(Criteria.where("name").regex(keyword));
+        query.with(Sort.by(order));
         List<Book> books = mongoTemplate.find(query, Book.class);
         return books;
     }

@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -29,7 +27,6 @@ public class searchController {
     @ResponseBody
     public List<Book> searchBookByKeyword(String keyword) {
         List<Book> books = bookDao.getBookByKeyword(keyword);
-        Collections.sort(books, new BookSortByEvaluation());
         return books;
     }
 
@@ -38,8 +35,9 @@ public class searchController {
     @ResponseBody
     public List<Movie> searchMovieByKeyword(String keyword) {
         List<Movie> movies = movieDao.getMovieByKeyword(keyword, "true");
-        Collections.sort(movies, new MovieSortByEvaluation());
         return movies;
     }
+
+
 
 }

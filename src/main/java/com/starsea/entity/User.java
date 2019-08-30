@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.io.Serializable;
 import java.util.List;
 
-import static org.springframework.data.mongodb.core.index.IndexDirection.ASCENDING;
 import static org.springframework.data.mongodb.core.index.IndexDirection.DESCENDING;
 
 //注释此类将被映射到数据库的users集合
@@ -30,9 +29,22 @@ public class User implements Serializable {
     @Field
     private String imgAddr = "http://114.115.131.124:8666/image/book/test.png";
 
-    private List<Movie> collectMovies;
+    /**
+     * 评论过的电影
+     */
+    private List<ObjectId> collectMovies;
 
-    private List<Book> collectBooks;
+    /**
+     * 评论过的书籍
+     */
+    private List<ObjectId> collectBooks;
+
+    /**
+     * 点赞过的帖子
+     */
+    private List<ObjectId> starPosts;
+
+    private List<ObjectId> collectPosts;
 
     public User() {
 
@@ -82,5 +94,37 @@ public class User implements Serializable {
 
     public void setImgAddr(String imgAddr) {
         this.imgAddr = imgAddr;
+    }
+
+    public List<ObjectId> getCollectMovies() {
+        return collectMovies;
+    }
+
+    public void setCollectMovies(List<ObjectId> collectMovies) {
+        this.collectMovies = collectMovies;
+    }
+
+    public List<ObjectId> getCollectBooks() {
+        return collectBooks;
+    }
+
+    public void setCollectBooks(List<ObjectId> collectBooks) {
+        this.collectBooks = collectBooks;
+    }
+
+    public List<ObjectId> getStarPosts() {
+        return starPosts;
+    }
+
+    public void setStarPosts(List<ObjectId> starPosts) {
+        this.starPosts = starPosts;
+    }
+
+    public List<ObjectId> getCollectPosts() {
+        return collectPosts;
+    }
+
+    public void setCollectPosts(List<ObjectId> collectPosts) {
+        this.collectPosts = collectPosts;
     }
 }

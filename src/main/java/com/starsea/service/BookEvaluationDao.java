@@ -16,6 +16,8 @@ public interface BookEvaluationDao {
 
     public BookEvaluation getBookEvaluationByBeId(ObjectId beId);
 
+    public BookEvaluation getBookEvaluationByUsernameAndIsbn(String username, String isbn);
+
     /**
      * 获取书评
      * @param isbn

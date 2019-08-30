@@ -1,5 +1,6 @@
 package com.starsea.repository;
 
+import com.starsea.entity.Book;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

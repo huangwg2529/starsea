@@ -37,7 +37,7 @@ public class LoginController {
     public Result login(@Valid @RequestBody VueLoginInfoVo loginInfoVo, BindingResult bindingResult) {
         //验证输入
         if (bindingResult.hasErrors()) {
-            String message = String.format("登录失败:%s。", bindingResult.getFieldError().getDefaultMessage());
+            String message = String.format("%s。", bindingResult.getFieldError().getDefaultMessage());
             return ResultFactory.buildFailResult(message);
         }
 
@@ -57,7 +57,7 @@ public class LoginController {
                 return ResultFactory.buildSuccessResult("登录成功。");
             }
         }
-        String message = String.format("登录失败，用户名或密码不正确！");
+        String message = String.format("用户名或密码不正确！");
         System.out.println("fail!");
         return ResultFactory.buildFailResult(message);
     }
@@ -69,7 +69,7 @@ public class LoginController {
         System.out.println("register");
         //验证输入
         if (bindingResult.hasErrors()) {
-            String message = String.format("注册失败: %s。", bindingResult.getFieldError().getDefaultMessage());
+            String message = String.format("%s。", bindingResult.getFieldError().getDefaultMessage());
             return ResultFactory.buildFailResult(message);
         }
 
@@ -78,14 +78,14 @@ public class LoginController {
         String password = loginInfoVo.getPassword();
 
         if(username.length()<3 || username.length()>12) {
-            String message = "注册失败，用户名必须是3-12个字符！";
+            String message = "用户名必须是3-12个字符！";
             return ResultFactory.buildFailResult(message);
         }
 
         char[] arr = password.toCharArray();
         int len = arr.length;
         if(len < 8 || len >16) {
-            String message = "注册失败，密码必须是8-16个字符！";
+            String message = "密码必须是8-16个字符！";
             return ResultFactory.buildFailResult(message);
         }
         boolean wordFlag = false;
@@ -100,7 +100,7 @@ public class LoginController {
             }
         }
         if(!(wordFlag&&numFlag)) {
-            String message = "注册失败，密码必须同时包含字母和数字！";
+            String message = "密码必须同时包含字母和数字！";
             return ResultFactory.buildFailResult(message);
         }
 
@@ -110,7 +110,7 @@ public class LoginController {
             userDao.addUser(newUser);
             return ResultFactory.buildSuccessResult("注册成功。");
         }
-        String message = "注册失败，用户名已存在。";
+        String message = "用户名已存在。";
         return ResultFactory.buildFailResult(message);
     }
 

@@ -2,6 +2,7 @@ package com.starsea.service;
 
 import com.starsea.entity.Movie;
 import com.starsea.enums.Region;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface MovieDao {
      * @param movie
      */
     public void updateMovieScore(Movie movie);
+
+    public Movie getMovieByMovieId(ObjectId movieId);
 
     public Movie getMovieByName(String name, String flag);
 
