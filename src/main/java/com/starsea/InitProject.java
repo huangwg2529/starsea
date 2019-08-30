@@ -69,10 +69,12 @@ public class InitProject implements ApplicationRunner {
         }
          */
 
+        /*
         List<Movie> movies = movieDao.getMovieByKeyword("", "true");
         for(int i=0; i<movies.size(); i++) {
             System.out.println(movies.get(i).getName() + movies.get(i).getScore());
         }
+         */
 
 
 

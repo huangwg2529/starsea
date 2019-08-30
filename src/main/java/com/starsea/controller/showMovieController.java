@@ -4,6 +4,9 @@ import com.starsea.entity.Movie;
 import com.starsea.entity.MovieEvaluation;
 import com.starsea.service.MovieDao;
 import com.starsea.service.MovieEvaluationDao;
+import com.starsea.vo.StarEvaluation;
+import com.starsea.vo.StarMovieEvaluation;
+import com.starsea.vo.VueMovieEvaluation;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,12 +71,15 @@ public class showMovieController {
     @CrossOrigin
     @RequestMapping(value = "/api/addMovieEvaluation", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String addBookEvaluation(@RequestBody String username, @RequestBody ObjectId movieId, @RequestBody String score, @RequestBody String evaluation) {
+    public String addBookEvaluation(@RequestBody VueMovieEvaluation vueMovieEvaluation) {
+        String username = vueMovieEvaluation.getUsername();
+        String evaluation = vueMovieEvaluation.getEvaluation();
+        double score = Double.parseDouble(vueMovieEvaluation.getScore());
+        ObjectId movieId = vueMovieEvaluation.getMovieId();
         if(evaluation.length() < 25) {
             return "评论失败，请输入25个字符或以上的内容！";
         }
-        double scoreD = Double.parseDouble(score);
-        MovieEvaluation movieEvaluation = new MovieEvaluation(username, movieId, scoreD, evaluation);
+        MovieEvaluation movieEvaluation = new MovieEvaluation(username, movieId, score, evaluation);
         movieEvaluationDao.addMovieEvaluation(movieEvaluation);
         return "SUCCESS";
     }
@@ -83,6 +89,18 @@ public class showMovieController {
     @ResponseBody
     public int movieEvaluationIsStar(ObjectId meId, String username) {
         return movieEvaluationDao.movieEvaluationIsStar(movieEvaluationDao.getMovieEvaluationByMeId(meId), username);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/starMovieEvaluation", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String starBookEvaluation(@RequestBody StarMovieEvaluation starMovieEvaluation) {
+        String flag = starMovieEvaluation.getFlag();
+        String username = starMovieEvaluation.getUsername();
+        ObjectId meId = starMovieEvaluation.getMeId();
+        int flags = Integer.parseInt(flag);
+        movieEvaluationDao.updateLikeNum(movieEvaluationDao.getMovieEvaluationByMeId(meId), flags);
+        return "SUCCESS";
     }
 
 }

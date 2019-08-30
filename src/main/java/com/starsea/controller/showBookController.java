@@ -4,6 +4,8 @@ import com.starsea.entity.Book;
 import com.starsea.entity.BookEvaluation;
 import com.starsea.service.BookDao;
 import com.starsea.service.BookEvaluationDao;
+import com.starsea.vo.StarEvaluation;
+import com.starsea.vo.VueAddBE;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,7 @@ public class showBookController {
     @ResponseBody
     public Book showBook(String name) {
         Book book = bookDao.getBookByName(name);
-        System.out.println(book.getIntroduction());
+        //System.out.println(book.getIntroduction());
         return book;
     }
 
@@ -53,15 +55,18 @@ public class showBookController {
     @CrossOrigin
     @RequestMapping(value = "/api/addBookEvaluation", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String addBookEvaluation(@RequestBody String username, @RequestBody String isbn, @RequestBody String score, @RequestBody String evaluation) {
-        if(evaluation.length() < 25) {
+    public String addBookEvaluation(@RequestBody VueAddBE vueAddBE) {
+        String username = vueAddBE.getUsername();
+        double score = Double.parseDouble(vueAddBE.getScore());
+        String isbn = vueAddBE.getIsbn();
+        String evaluation = vueAddBE.getEvaluation();
+        if(vueAddBE.getEvaluation().length() < 25) {
             return "请输入25个字符或以上的内容！";
         }
         if(bookEvaluationDao.getBookEvaluationByUsernameAndIsbn(username, isbn) != null) {
             return "您已评论过此图书！";
         }
-        double scoreD = Double.parseDouble(score);
-        BookEvaluation bookEvaluation = new BookEvaluation(username, isbn, scoreD, evaluation);
+        BookEvaluation bookEvaluation = new BookEvaluation(username, isbn, score, evaluation);
         bookEvaluationDao.addBookEvaluation(bookEvaluation);
         return "SUCCESS";
     }
@@ -73,11 +78,13 @@ public class showBookController {
         return bookEvaluationDao.bookEvaluationIsStar(bookEvaluationDao.getBookEvaluationByBeId(beId), username);
     }
 
-
     @CrossOrigin
     @RequestMapping(value = "/api/starBookEvaluation", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String starBookEvaluation(@RequestBody ObjectId beId, @RequestBody String username, String flag) {
+    public String starBookEvaluation(@RequestBody StarEvaluation starEvaluation) {
+        String flag = starEvaluation.getFlag();
+        String username = starEvaluation.getUsername();
+        ObjectId beId = starEvaluation.getBeId();
         int flags = Integer.parseInt(flag);
         bookEvaluationDao.updateLikeNum(bookEvaluationDao.getBookEvaluationByBeId(beId), username, flags);
         return "SUCCESS";
