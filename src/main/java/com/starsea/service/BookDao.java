@@ -19,6 +19,11 @@ public interface BookDao {
 
     public Book getBookByName(String name);
 
+    /**
+     * 关键字查询
+     * @param keyword 书名、类型、作者的关键字
+     * @return
+     */
     public List<Book> getBookByKeyword(String keyword);
 
     public Book getBookByIsbn(String isbn);

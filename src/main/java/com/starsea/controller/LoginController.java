@@ -26,9 +26,6 @@ public class LoginController {
     @Autowired
     private UserDao userDao;
 
-    @Autowired
-    private ServiceContactService serviceContactService;
-
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @CrossOrigin
@@ -113,21 +110,4 @@ public class LoginController {
         String message = "用户名已存在。";
         return ResultFactory.buildFailResult(message);
     }
-
-    /**
-     * 生成验证码
-     */
-    @GetMapping("/api/getVerify")
-    public void getVerify(HttpServletRequest request, HttpServletResponse response) {
-        serviceContactService.getVerify(request, response);
-    }
-
-    /**
-     * 忘记密码页面校验验证码
-     */
-    @PostMapping("/api/checkVerify")
-    public boolean checkVerify(@RequestParam String verifyInput, HttpSession session) {
-        return serviceContactService.checkVerify(verifyInput, session);
-    }
-
 }

@@ -1,7 +1,5 @@
 package com.starsea.controller;
 
-import com.starsea.controller.sort.BookSortByEvaluation;
-import com.starsea.controller.sort.MovieSortByEvaluation;
 import com.starsea.entity.Book;
 import com.starsea.entity.Movie;
 import com.starsea.service.BookDao;
@@ -26,6 +24,10 @@ public class searchController {
     @RequestMapping(value = "/api/searchBook", method = RequestMethod.GET)
     @ResponseBody
     public List<Book> searchBookByKeyword(String keyword) {
+        if(keyword==null) {
+            System.out.println("keyword==null");
+            return null;
+        }
         List<Book> books = bookDao.getBookByKeyword(keyword);
         return books;
     }
@@ -34,6 +36,10 @@ public class searchController {
     @RequestMapping(value = "/api/searchMovie", method = RequestMethod.GET)
     @ResponseBody
     public List<Movie> searchMovieByKeyword(String keyword) {
+        if(keyword==null) {
+            System.out.println("keyword==null");
+            return null;
+        }
         List<Movie> movies = movieDao.getMovieByKeyword(keyword, "true");
         return movies;
     }
@@ -42,6 +48,10 @@ public class searchController {
     @RequestMapping(value = "/api/searchTV", method = RequestMethod.GET)
     @ResponseBody
     public List<Movie> searchTVByKeyword(String keyword) {
+        if(keyword==null) {
+            System.out.println("keyword==null");
+            return null;
+        }
         List<Movie> movies = movieDao.getMovieByKeyword(keyword, "false");
         return movies;
     }

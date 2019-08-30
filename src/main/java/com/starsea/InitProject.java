@@ -32,6 +32,13 @@ public class InitProject implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
         /*
+        List<Book> books = bookDao.getBookByKeyword("你");
+        for(int i=0; i<books.size(); i++) {
+            System.out.println(books.get(i).getScore() + books.get(i).getName());
+        }
+         */
+
+        /*
         Date create = new Date();
         String time = String.format("%tY年%<tm月%<td日", create) + " " + String.format("%tT", create);
         //Post(String title, String username, String imgAddr, String mainBody, String time)
@@ -48,7 +55,7 @@ public class InitProject implements ApplicationRunner {
         }
          */
 
-        Book yourname = bookDao.getBookByName("数学分析原理");
+        //Book yourname = bookDao.getBookByName("数学分析原理");
         /*
         //BookEvaluation(String username, String isbn, double score, String evaluation)
 

@@ -119,4 +119,20 @@ public class PostDaoImpl implements PostDao {
     public Post getPostById(ObjectId id) {
         return postRepository.findByPostId(id);
     }
+
+
+    /**
+     * 查询一个属性的子属性，例如：查下面数据的key2.keyA的语句
+     *
+     *  var s = {
+     *        key1: value1,
+     *        key2: {
+     *            keyA: valueA,
+     *            keyB: valueB
+     *        }
+     *    };
+     *
+     * @Query("{'key2.keyA':?0}")
+     * List<Asset> findAllBykeyA(String keyA);
+     */
 }

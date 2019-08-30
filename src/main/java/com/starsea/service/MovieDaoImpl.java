@@ -99,12 +99,29 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     public List<Movie> getMovieByKeyword(String keyword, String flag) {
-        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "score");
         Query query = new Query();
-        query.addCriteria(Criteria.where("name").regex(keyword));
-        query.addCriteria(Criteria.where("flag").is(flag));
+        query.addCriteria(
+                new Criteria().andOperator(
+                        Criteria.where("flag").is(flag),
+                        new Criteria().orOperator(
+                                Criteria.where("name").regex(keyword),
+                                Criteria.where("director").regex(keyword),
+                                Criteria.where("stars").regex(keyword)
+                        )
+                )
+        );
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "score");
         query.with(Sort.by(order));
         return mongoTemplate.find(query, Movie.class);
     }
+
+
+    /*
+    Criteria criteria = new Criteria();
+    criteria.orOperator(Criteria.where("phone").is("534289"),Criteria.where("account").is("534289"));
+    Query query1 = new Query(criteria);
+    List<User> users = mongoTemplate.find(query1, User.class);
+    System.out.println(users);
+     */
 
 }

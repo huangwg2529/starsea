@@ -87,8 +87,10 @@ public class BookDaoImpl implements BookDao {
     //关键字查询
     @Override
     public List<Book> getBookByKeyword(String keyword){
+        Criteria criteria = new Criteria();
+        criteria.orOperator(Criteria.where("name").regex(keyword), Criteria.where("author").regex(keyword), Criteria.where("bookTypes").regex(keyword));
+        Query query = new Query(criteria);
         Sort.Order order = new Sort.Order(Sort.Direction.DESC, "score");
-        Query query = Query.query(Criteria.where("name").regex(keyword));
         query.with(Sort.by(order));
         List<Book> books = mongoTemplate.find(query, Book.class);
         return books;

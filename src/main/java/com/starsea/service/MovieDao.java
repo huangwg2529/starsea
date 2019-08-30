@@ -32,7 +32,7 @@ public interface MovieDao {
 
     /**
      * 按关键字搜索影视
-     * @param keyword
+     * @param keyword 影名、导演、主演的关键字
      * @param flag "true"是电影，"false"是电视剧
      * @return
      */
