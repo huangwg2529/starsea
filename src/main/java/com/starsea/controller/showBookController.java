@@ -48,7 +48,13 @@ public class showBookController {
     @ResponseBody
     public BookEvaluation showOneBookEvaluation(String name) {
         Book book = bookDao.getBookByName(name);
-        return bookEvaluationDao.getBookEvaluationByIsbn(book.getIsbn(), 2).get(0);
+        List<BookEvaluation> bookEvaluations = bookEvaluationDao.getBookEvaluationByIsbn(book.getIsbn(), 2);
+        if(bookEvaluations.size() == 0) {
+            //String username, ObjectId movieId, double score, String evaluation
+            return new BookEvaluation("1", book.getIsbn(), 0, "暂无");
+        } else {
+            return bookEvaluations.get(0);
+        }
     }
 
     @CrossOrigin

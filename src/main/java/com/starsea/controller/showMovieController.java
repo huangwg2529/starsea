@@ -72,7 +72,13 @@ public class showMovieController {
     @ResponseBody
     public MovieEvaluation showOneMovieEvaluation(String name) {
         Movie movie = movieDao.getMovieByName(name, "true");
-        return movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), 2).get(0);
+        List<MovieEvaluation> movieEvaluations = movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), 2);
+        if(movieEvaluations.size() == 0) {
+            //String username, ObjectId movieId, double score, String evaluation
+            return new MovieEvaluation("1", movie.getMovieId(), 0, "暂无");
+        } else {
+            return movieEvaluations.get(0);
+        }
     }
 
     @CrossOrigin
@@ -80,7 +86,13 @@ public class showMovieController {
     @ResponseBody
     public MovieEvaluation showOneTVEvaluation(String name) {
         Movie movie = movieDao.getMovieByName(name, "false");
-        return movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), 2).get(0);
+        List<MovieEvaluation> movieEvaluations = movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), 2);
+        if(movieEvaluations.size() == 0) {
+            //String username, ObjectId movieId, double score, String evaluation
+            return new MovieEvaluation("1", movie.getMovieId(), 0, "暂无");
+        } else {
+            return movieEvaluations.get(0);
+        }
     }
 
     @CrossOrigin

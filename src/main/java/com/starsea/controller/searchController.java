@@ -1,7 +1,9 @@
 package com.starsea.controller;
 
 import com.starsea.entity.Book;
+import com.starsea.entity.Group;
 import com.starsea.entity.Movie;
+import com.starsea.entity.Post;
 import com.starsea.service.BookDao;
 import com.starsea.service.MovieDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,87 @@ public class searchController {
         return movies;
     }
 
+    /*
+    @CrossOrigin
+    @RequestMapping(value = "/api/searchAll", method = RequestMethod.GET)
+    @ResponseBody
+    public AllList searchAllByKeyword(String keyword) {
+        AllList allList = new AllList();
+        if(keyword==null) {
+            System.out.println("keyword==null");
+            return null;
+        }
+        List<Movie> tvs = movieDao.getMovieByKeyword(keyword, "true");
+        List<Movie> movies = movieDao.getMovieByKeyword(keyword, "false");
+        List<Book> books =
+        return movies;
+    }
+     */
+
+}
 
 
+class AllList {
+    List<Book> books;
+    List<Movie> movies;
+    List<Movie> TVs;
+    List<Group> groups;
+    List<Post> posts;
+
+    public AllList() {
+
+    }
+
+    public AllList(List<Book> books, List<Movie> movies) {
+        this.books = books;
+        this.movies = movies;
+    }
+
+    public AllList(List<Book> books, List<Movie> movies, List<Movie> TVs, List<Group> groups, List<Post> posts) {
+        this.books = books;
+        this.movies = movies;
+        this.TVs = TVs;
+        this.groups = groups;
+        this.posts = posts;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+    }
+
+    public List<Movie> getTVs() {
+        return TVs;
+    }
+
+    public void setTVs(List<Movie> TVs) {
+        this.TVs = TVs;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 }
