@@ -1,5 +1,10 @@
 package com.starsea.util;
 
+public class CommonUtil {
+
+}
+
+/*
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 
 import javax.imageio.ImageIO;
@@ -17,7 +22,7 @@ public class CommonUtil {
      * @param captchaProducer 生成图片方法类
      * @param validateSessionKey session名称
      * @throws Exception
-     */
+
     public static void validateCode(HttpServletRequest request, HttpServletResponse response, DefaultKaptcha captchaProducer, String validateSessionKey) throws Exception{
         // Set to expire far in the past.
         response.setDateHeader("Expires", 0);
@@ -52,3 +57,6 @@ public class CommonUtil {
     }
 
 }
+
+
+ */

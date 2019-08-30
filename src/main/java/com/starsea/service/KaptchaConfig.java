@@ -1,5 +1,10 @@
 package com.starsea.service;
 
+public class KaptchaConfig {
+
+}
+
+/**
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import org.springframework.context.annotation.Bean;
@@ -56,3 +61,4 @@ public class KaptchaConfig {
     }
 
 }
+ */
