@@ -16,6 +16,8 @@ public interface MovieEvaluationDao {
 
     public MovieEvaluation getMovieEvaluationByMeId(ObjectId meId);
 
+    public MovieEvaluation getMovieEvaluationByUsernameAndMovieId(String username, ObjectId movieId);
+
     /**
      * 获取影评
      * @param movieId

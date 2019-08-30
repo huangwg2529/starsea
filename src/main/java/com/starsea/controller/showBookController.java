@@ -62,12 +62,19 @@ public class showBookController {
         if(vueAddBE.getEvaluation().length() < 25) {
             return "请输入25个字符或以上的内容！";
         }
-        if(bookEvaluationDao.getBookEvaluationByUsernameAndIsbn(username, isbn) != null) {
-            return "您已评论过此图书！";
-        }
         BookEvaluation bookEvaluation = new BookEvaluation(username, isbn, score, evaluation);
         bookEvaluationDao.addBookEvaluation(bookEvaluation);
         return "SUCCESS";
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/isBookEvaluation", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean isBookEvaluation(String username, String isbn) {
+        if(bookEvaluationDao.getBookEvaluationByUsernameAndIsbn(username, isbn) != null) {
+            return true;
+        }
+        return false;
     }
 
     @CrossOrigin

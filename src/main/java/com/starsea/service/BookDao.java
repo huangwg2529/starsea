@@ -13,7 +13,7 @@ public interface BookDao {
     public void deleteBook(Book book);
     public void updateBook(Book book);
 
-    public void updateBookScore(Book book);
+    public void updateBookScore(Book book, double score);
 
     public Book getBookByBookId(ObjectId Id);
 

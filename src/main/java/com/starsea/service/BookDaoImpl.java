@@ -44,20 +44,16 @@ public class BookDaoImpl implements BookDao {
     }
 
     //更新评分，每新增一个评论就要更新
-    public void updateBookScore(Book book) {
-        List<BookEvaluation> evaluations = bookEvaluationDao.getBookEvaluationByIsbn(book.getIsbn(), 1);
-        int count = evaluations.size();
-        double scoreTotal = 0;
-        for(int i=0; i<count; i++) {
-            scoreTotal += evaluations.get(i).getScore();
-        }
-        //保留一位小数
-        double scoreAvg = (double) Math.round(scoreTotal/count*10)/10;
+    public void updateBookScore(Book book, double score) {
+        double avgScore = book.getScore();
+        int num = book.getEvaluationNum();
+        double newScore = (avgScore*num + score) / (num+1);
+        score = Math.round(newScore*10) / 10;
         //更新数据库中的评分
         Query query = Query.query(Criteria.where("isbn").is(book.getIsbn()));
         Update update = new Update();
-        update.set("score", scoreAvg);
-        update.set("evaluationNum", count);
+        update.set("score", score);
+        update.set("evaluationNum", num + 1);
         System.out.println(update);
         System.out.println(query);
         mongoTemplate.updateFirst(query, update, Book.class);

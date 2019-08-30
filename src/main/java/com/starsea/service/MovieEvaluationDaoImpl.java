@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
-import javax.xml.ws.Action;
 import java.util.List;
 
 @Service
@@ -49,6 +48,13 @@ public class MovieEvaluationDaoImpl implements MovieEvaluationDao {
         Query query = new Query(Criteria.where("movieId").is(movieId));
         query.with(Sort.by(order));
         return mongoTemplate.find(query, MovieEvaluation.class);
+    }
+
+    public MovieEvaluation getMovieEvaluationByUsernameAndMovieId(String username, ObjectId movieId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("username").is(username));
+        query.addCriteria(Criteria.where("movieId").is(movieId));
+        return mongoTemplate.findOne(query, MovieEvaluation.class);
     }
 
     @Override

@@ -20,10 +20,12 @@ public class BookEvaluationDaoImpl implements BookEvaluationDao {
     private BookEvaluationRepository bookEvaluationRepository;
     @Autowired
     private MongoTemplate mongoTemplate;
+    @Autowired
+    private BookDao bookDao;
 
     public void addBookEvaluation(BookEvaluation bookEvaluation) {
         bookEvaluationRepository.insert(bookEvaluation);
-        //新增评论的同时更新评分
+        bookDao.updateBookScore(bookDao.getBookByIsbn(bookEvaluation.getIsbn()), bookEvaluation.getScore());
         //添加到用户列表
         //需要添加
     }

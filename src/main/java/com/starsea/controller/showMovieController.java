@@ -83,7 +83,6 @@ public class showMovieController {
         return movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), 2).get(0);
     }
 
-
     @CrossOrigin
     @RequestMapping(value = "/api/addMovieEvaluation", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -98,6 +97,16 @@ public class showMovieController {
         MovieEvaluation movieEvaluation = new MovieEvaluation(username, movieId, score, evaluation);
         movieEvaluationDao.addMovieEvaluation(movieEvaluation);
         return "SUCCESS";
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/isMovieEvaluation", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean isMovieEvaluation(String username, String movieId) {
+        if(movieEvaluationDao.getMovieEvaluationByUsernameAndMovieId(username, new ObjectId(movieId)) != null) {
+            return true;
+        }
+        return false;
     }
 
     @CrossOrigin
