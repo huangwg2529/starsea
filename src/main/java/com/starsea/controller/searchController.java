@@ -38,6 +38,14 @@ public class searchController {
         return movies;
     }
 
+    @CrossOrigin
+    @RequestMapping(value = "/api/searchTV", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Movie> searchTVByKeyword(String keyword) {
+        List<Movie> movies = movieDao.getMovieByKeyword(keyword, "false");
+        return movies;
+    }
+
 
 
 }

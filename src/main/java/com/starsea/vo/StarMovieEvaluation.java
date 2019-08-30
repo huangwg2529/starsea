@@ -1,9 +1,7 @@
 package com.starsea.vo;
 
-import org.bson.types.ObjectId;
-
 public class StarMovieEvaluation {
-    private ObjectId meId;
+    private String meId;
     private String username;
     private String flag;
 
@@ -11,17 +9,17 @@ public class StarMovieEvaluation {
 
     }
 
-    public StarMovieEvaluation(ObjectId beId, String username, String flag) {
+    public StarMovieEvaluation(String meId, String username, String flag) {
         this.meId = meId;
         this.username = username;
         this.flag = flag;
     }
 
-    public ObjectId getMeId() {
+    public String getMeId() {
         return meId;
     }
 
-    public void setMeId(ObjectId meId) {
+    public void setMeId(String meId) {
         this.meId = meId;
     }
 

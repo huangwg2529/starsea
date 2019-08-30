@@ -30,6 +30,12 @@ public interface MovieDao {
 
     public Movie getMovieByReleaseYear(int releaseYear, String flag);
 
+    /**
+     * 按关键字搜索影视
+     * @param keyword
+     * @param flag "true"是电影，"false"是电视剧
+     * @return
+     */
     public List<Movie> getMovieByKeyword(String keyword, String flag);
 
     /**

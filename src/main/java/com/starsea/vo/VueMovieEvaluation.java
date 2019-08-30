@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 
 public class VueMovieEvaluation {
     private String username;
-    private ObjectId movieId;
+    private String id;
     private String score;
     private String evaluation;
 
@@ -12,9 +12,9 @@ public class VueMovieEvaluation {
 
     }
 
-    public VueMovieEvaluation(String username, ObjectId movieId, String score, String evaluation) {
+    public VueMovieEvaluation(String username, String Id, String score, String evaluation) {
         this.username = username;
-        this.movieId = movieId;
+        this.id = Id;
         this.score = score;
         this.evaluation = evaluation;
     }
@@ -27,12 +27,12 @@ public class VueMovieEvaluation {
         this.username = username;
     }
 
-    public ObjectId getMovieId() {
-        return movieId;
+    public String getId() {
+        return id;
     }
 
-    public void setMovieId(ObjectId movieId) {
-        this.movieId = movieId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getScore() {
@@ -49,5 +49,15 @@ public class VueMovieEvaluation {
 
     public void setEvaluation(String evaluation) {
         this.evaluation = evaluation;
+    }
+
+    @Override
+    public String toString() {
+        return "VueMovieEvaluation{" +
+                "username='" + username + '\'' +
+                ", id='" + id + '\'' +
+                ", score='" + score + '\'' +
+                ", evaluation='" + evaluation + '\'' +
+                '}';
     }
 }

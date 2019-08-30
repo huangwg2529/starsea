@@ -2,6 +2,7 @@ package com.starsea;
 
 import com.starsea.entity.*;
 import com.starsea.service.*;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -78,11 +79,24 @@ public class InitProject implements ApplicationRunner {
 
 
 
+
+
+
+        /*
+        ObjectId id = new ObjectId("5d64ea209107400a443a342a");
+        String ids = id.toString();
+        System.out.println("ObjectId: " + id);
+        System.out.println("String:  " + ids);
+        ObjectId ider = new ObjectId(ids);
+        System.out.println(ider.equals(id));
+         */
+
+        /*
         Date now = new Date();
         String createTime = String.format("%tY-%<tm-%<td", now);  //2010-10-4
         String createTime2 = String.format("%tY年%<tm月%<td日", now) + " " + String.format("%tT", now);//2010年10月4日 17:31:11
         System.out.println(createTime + "   " + createTime2);
-
+         */
 
         /**
          * 小组测试

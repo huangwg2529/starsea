@@ -25,7 +25,6 @@ public class showBookController {
     @ResponseBody
     public Book showBook(String name) {
         Book book = bookDao.getBookByName(name);
-        //System.out.println(book.getIntroduction());
         return book;
     }
 
@@ -84,7 +83,7 @@ public class showBookController {
     public String starBookEvaluation(@RequestBody StarEvaluation starEvaluation) {
         String flag = starEvaluation.getFlag();
         String username = starEvaluation.getUsername();
-        ObjectId beId = starEvaluation.getBeId();
+        ObjectId beId = new ObjectId(starEvaluation.getBeId());
         int flags = Integer.parseInt(flag);
         bookEvaluationDao.updateLikeNum(bookEvaluationDao.getBookEvaluationByBeId(beId), username, flags);
         return "SUCCESS";

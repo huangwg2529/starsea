@@ -67,6 +67,22 @@ public class showMovieController {
         return movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), flag);
     }
 
+    @CrossOrigin
+    @RequestMapping(value = "/api/showOneMovieEvaluation", method = RequestMethod.GET)
+    @ResponseBody
+    public MovieEvaluation showOneMovieEvaluation(String name) {
+        Movie movie = movieDao.getMovieByName(name, "true");
+        return movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), 2).get(0);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/showOneTVEvaluation", method = RequestMethod.GET)
+    @ResponseBody
+    public MovieEvaluation showOneTVEvaluation(String name) {
+        Movie movie = movieDao.getMovieByName(name, "false");
+        return movieEvaluationDao.getMovieEvaluationByMovieId(movie.getMovieId(), 2).get(0);
+    }
+
 
     @CrossOrigin
     @RequestMapping(value = "/api/addMovieEvaluation", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
@@ -75,7 +91,7 @@ public class showMovieController {
         String username = vueMovieEvaluation.getUsername();
         String evaluation = vueMovieEvaluation.getEvaluation();
         double score = Double.parseDouble(vueMovieEvaluation.getScore());
-        ObjectId movieId = vueMovieEvaluation.getMovieId();
+        ObjectId movieId = new ObjectId(vueMovieEvaluation.getId());
         if(evaluation.length() < 25) {
             return "评论失败，请输入25个字符或以上的内容！";
         }
@@ -97,7 +113,7 @@ public class showMovieController {
     public String starBookEvaluation(@RequestBody StarMovieEvaluation starMovieEvaluation) {
         String flag = starMovieEvaluation.getFlag();
         String username = starMovieEvaluation.getUsername();
-        ObjectId meId = starMovieEvaluation.getMeId();
+        ObjectId meId = new ObjectId(starMovieEvaluation.getMeId());
         int flags = Integer.parseInt(flag);
         movieEvaluationDao.updateLikeNum(movieEvaluationDao.getMovieEvaluationByMeId(meId), flags);
         return "SUCCESS";

@@ -3,7 +3,7 @@ package com.starsea.vo;
 import org.bson.types.ObjectId;
 
 public class StarEvaluation {
-    private ObjectId beId;
+    private String beId;
     private String username;
     private String flag;
 
@@ -11,17 +11,17 @@ public class StarEvaluation {
 
     }
 
-    public StarEvaluation(ObjectId beId, String username, String flag) {
+    public StarEvaluation(String beId, String username, String flag) {
         this.beId = beId;
         this.username = username;
         this.flag = flag;
     }
 
-    public ObjectId getBeId() {
+    public String getBeId() {
         return beId;
     }
 
-    public void setBeId(ObjectId beId) {
+    public void setBeId(String beId) {
         this.beId = beId;
     }
 

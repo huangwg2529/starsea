@@ -184,5 +184,9 @@ public class Movie implements Serializable {
     public void setLanguage(String language) {
         this.language = language;
     }
+
+    public String getFlag() {
+        return flag;
+    }
 }
 
