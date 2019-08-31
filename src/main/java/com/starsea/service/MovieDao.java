@@ -44,4 +44,6 @@ public interface MovieDao {
      * @return
      */
     public List<Movie> getMovieForIndex(int num, String flag);
+
+    public List<Movie> getMovieByEvaluationNum(int num, String flag);
 }

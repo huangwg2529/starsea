@@ -37,4 +37,6 @@ public interface BookDao {
      */
     public List<Book> getBookForIndex(int num);
 
+    public List<Book> getBookByLikeNum(int num);
+
 }

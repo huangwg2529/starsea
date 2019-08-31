@@ -58,6 +58,14 @@ public class MovieDaoImpl implements MovieDao {
         return mongoTemplate.find(query, Movie.class);
     }
 
+    public List<Movie> getMovieByEvaluationNum(int num, String flag) {
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "evaluationNum");
+        Criteria criteria = Criteria.where("flag").is(flag);
+        Query query = new Query(criteria);
+        query.with(Sort.by(order)).limit(num);
+        return mongoTemplate.find(query, Movie.class);
+    }
+
     public Movie getMovieByName(String name, String flag) {
         Criteria criteria = new Criteria();
         criteria.andOperator(Criteria.where("name").is(name), Criteria.where("flag").is(flag));

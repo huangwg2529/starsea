@@ -100,5 +100,12 @@ public class BookDaoImpl implements BookDao {
         return mongoTemplate.find(query, Book.class);
     }
 
+    public List<Book> getBookByLikeNum(int num) {
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "evaluationNum");
+        Query query = new Query();
+        //感谢：https://blog.csdn.net/john_1023/article/details/90522618
+        query.with(Sort.by(order)).limit(num);
+        return mongoTemplate.find(query, Book.class);
+    }
 
 }

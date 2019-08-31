@@ -36,6 +36,13 @@ public class showBookController {
     }
 
     @CrossOrigin
+    @RequestMapping(value = "/api/showBookByEvaluationNum", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Book> showBookByEvaluationNum(Integer num) {
+        return bookDao.getBookByLikeNum(num);
+    }
+
+    @CrossOrigin
     @RequestMapping(value = "/api/showBookEvaluation", method = RequestMethod.GET)
     @ResponseBody
     public List<BookEvaluation> showBookEvaluation(String name, int flag) {
