@@ -1,8 +1,5 @@
 package com.starsea.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -36,25 +33,17 @@ public class LoginController {
             String message = String.format("%s。", bindingResult.getFieldError().getDefaultMessage());
             return ResultFactory.buildFailResult(message);
         }
-
         //获取输入的账号密码
         String username = loginInfoVo.getUsername();
         String password = loginInfoVo.getPassword();
 
-        System.out.println(username + "  login");
-
-        //验证获取数据成功
-        //System.out.println(username + "  " + password);
-
         User findUser = userDao.getUserByName(username);
         if(findUser!=null){
             if(Objects.equals(findUser.getPassword(), password)){
-                System.out.println("login success");
                 return ResultFactory.buildSuccessResult("登录成功。");
             }
         }
         String message = String.format("用户名或密码不正确！");
-        System.out.println("fail!");
         return ResultFactory.buildFailResult(message);
     }
 

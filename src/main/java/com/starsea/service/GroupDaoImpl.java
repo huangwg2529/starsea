@@ -3,6 +3,7 @@ package com.starsea.service;
 import com.starsea.entity.Group;
 import com.starsea.entity.User;
 import com.starsea.repository.GroupRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -31,17 +32,17 @@ public class GroupDaoImpl implements GroupDao {
     }
 
     public void addGroupMember(Group group, String username) {
-        Query query = Query.query(Criteria.where("GroupId").is(group.getGroupId()));
+        Query query = Query.query(Criteria.where("groupId").is(group.getGroupId()));
         List<String> members = group.getMembersName();
         if(userDao.getUserByName(username)==null) {
             return;
         }
         members.add(username);
         Update update = new Update();
-        update.set("groupMembers", members);
-        System.out.println(update);
-        System.out.println(query);
+        update.set("membersName", members);
         mongoTemplate.updateFirst(query, update, Group.class);
+        //热度+1
+        updateGroupHeatDegree(group, 1);
     }
 
     public void deleteGroupMember(Group group, String username) {
@@ -52,25 +53,26 @@ public class GroupDaoImpl implements GroupDao {
         }
         members.remove(username);
         Update update = new Update();
-        update.set("groupMembers", members);
-        System.out.println(update);
+        update.set("membersName", members);
         mongoTemplate.updateFirst(query, update, "groups");
+        //热度-1
+        updateGroupHeatDegree(group, -1);
     }
 
     public void addGroupAdmin(Group group, String username) {
-        Query query = Query.query(Criteria.where("GroupId").is(group.getGroupId()));
+        Query query = Query.query(Criteria.where("groupId").is(group.getGroupId()));
         List<String> admins = group.getAdminsName();
         if(userDao.getUserByName(username)==null) {
             return;
         }
         admins.add(username);
         Update update = new Update();
-        update.set("groupAdmins", admins);
+        update.set("adminsName", admins);
         mongoTemplate.updateFirst(query, update, "groups");
     }
 
     public void deleteGroupAdmin(Group group, String username) {
-        Query query = Query.query(Criteria.where("GroupId").is(group.getGroupId()));
+        Query query = Query.query(Criteria.where("groupId").is(group.getGroupId()));
         List<String> admins = group.getAdminsName();
         if(userDao.getUserByName(username)==null) {
             return;
@@ -81,8 +83,16 @@ public class GroupDaoImpl implements GroupDao {
         mongoTemplate.updateFirst(query, update, "groups");
     }
 
-    public void updateGroupHeatDegree(Group group) {
-        System.out.println("waiting");
+    public void updateGroupHeatDegree(Group group, int flag) {
+        Query query = Query.query(Criteria.where("groupId").is(group.getGroupId()));
+        Update update = new Update();
+        update.set("heatDegree", group.getHeatDegree() + flag);
+        mongoTemplate.updateFirst(query, update, Group.class);
+    }
+
+    @Override
+    public Group getGroupByGroupId(ObjectId groupId) {
+        return groupRepository.findByGroupId(groupId);
     }
 
     public Group getGroupByName(String name) {
@@ -102,5 +112,11 @@ public class GroupDaoImpl implements GroupDao {
         Query query = new Query();
         query.with(Sort.by(order)).limit(num);
         return mongoTemplate.find(query, Group.class);
+    }
+
+    public boolean isJoinGroup(ObjectId groupId, String username) {
+        Group group = getGroupByGroupId(groupId);
+        List<String> membersName = group.getMembersName();
+        return membersName.contains(username);
     }
 }

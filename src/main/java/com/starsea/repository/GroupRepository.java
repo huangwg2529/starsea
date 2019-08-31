@@ -10,6 +10,8 @@ import java.util.List;
 public interface GroupRepository extends MongoRepository<Group, ObjectId> {
     public Group findByName(String name);
 
+    public Group findByGroupId(ObjectId groupId);
+
     public List<Group> findByNameLike(String keyword);
 
     public List<Group> findByTagsLike(String tag);

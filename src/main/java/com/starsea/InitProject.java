@@ -1,16 +1,16 @@
 package com.starsea;
 
+import com.starsea.controller.sort.ListSortByScore;
 import com.starsea.entity.*;
 import com.starsea.service.*;
+import com.starsea.vo.AllList;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class InitProject implements ApplicationRunner {
@@ -29,10 +29,57 @@ public class InitProject implements ApplicationRunner {
     @Autowired
     private PostDao postDao;
 
+    /*
+
+    public List<AllList> searchAllByKeyword(String keyword) {
+        List<Movie> tvs = movieDao.getMovieByKeyword(keyword, "true");
+        List<Movie> movies = movieDao.getMovieByKeyword(keyword, "false");
+        List<Book> books = bookDao.getBookByKeyword(keyword);
+        List<Group> groups = groupDao.getGroupByKeyword(keyword);
+        List<Post> posts = postDao.getPostByKeyword(keyword);
+        List<AllList> allLists = AllList.transMovieToAllList(tvs);
+        allLists.addAll(AllList.transBookToAllList(books));
+        allLists.addAll(AllList.transMovieToAllList(movies));
+        allLists.addAll(AllList.transGroupToAllList(groups));
+        allLists.addAll(AllList.transPostToAllList(posts));
+        Collections.sort(allLists, new ListSortByScore());
+        return allLists;
+    }
+
+    */
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+        /*
+        List<AllList> allLists = searchAllByKeyword("");
+        for (int i = 0; i < allLists.size(); i++) {
+            double score = allLists.get(i).getScore();
+            int flag = allLists.get(i).getFlag();
+            String name;
+            switch (flag) {
+                case 1:
+                    name = ((Book) allLists.get(i).getResult()).getName();
+                    break;
+                case 2:
+                case 3:
+                    name = ((Movie) allLists.get(i).getResult()).getName();
+                    break;
+                case 4:
+                    name = ((Group) allLists.get(i).getResult()).getName();
+                    break;
+                case 5:
+                    name = ((Post) allLists.get(i).getResult()).getName();
+                default:
+                    name = "??";
 
+            }
+            System.out.println("name: " + name + "; flag: " + flag + "; score: " + score);
+        }
+
+         */
+    }
+}
         /*
         List<Book> books = bookDao.getBookByKeyword("你");
         for(int i=0; i<books.size(); i++) {
@@ -197,5 +244,3 @@ public class InitProject implements ApplicationRunner {
         System.out.println("init");
 
          */
-    }
-}

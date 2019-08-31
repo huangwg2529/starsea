@@ -62,7 +62,6 @@ public class MovieDaoImpl implements MovieDao {
         Criteria criteria = new Criteria();
         criteria.andOperator(Criteria.where("name").is(name), Criteria.where("flag").is(flag));
         Movie movie = mongoTemplate.findOne(new Query(criteria), Movie.class);
-        System.out.println(movie.getIntroduction());
         return movie;
     }
 

@@ -20,6 +20,8 @@ public class Group {
 
     private String introduction;
 
+    private Date date;
+
     private String createTime;
 
     private String leaderName;
@@ -35,14 +37,16 @@ public class Group {
     }
 
     @PersistenceConstructor
-    public Group(String name, String[] tags, String introduction, String createTime, String leaderName) {
+    public Group(String name, String[] tags, String introduction, String leaderName) {
         this.name = name;
         this.tags = tags;
         this.introduction = introduction;
-        this.createTime = createTime;
+        date = new Date();
+        createTime = String.format("%tY年%<tm月%<td日", date) + " " + String.format("%tT", date);//2010年10月4日 17:31:11
         this.leaderName = leaderName;
         this.membersName = new ArrayList<String>();
         this.membersName.add(leaderName);
+        heatDegree = 1;
     }
 
     public ObjectId getGroupId() {
@@ -115,5 +119,21 @@ public class Group {
 
     public void setHeatDegree(int heatDegree) {
         this.heatDegree = heatDegree;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "groupId=" + groupId +
+                ", name='" + name + '\'' +
+                ", tags=" + Arrays.toString(tags) +
+                ", introduction='" + introduction + '\'' +
+                ", date=" + date +
+                ", createTime='" + createTime + '\'' +
+                ", leaderName='" + leaderName + '\'' +
+                ", adminsName=" + adminsName +
+                ", membersName=" + membersName +
+                ", heatDegree=" + heatDegree +
+                '}';
     }
 }

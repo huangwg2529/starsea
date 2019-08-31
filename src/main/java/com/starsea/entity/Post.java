@@ -6,6 +6,7 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +33,8 @@ public class Post {
      */
     private String mainBody;
 
+    private Date createDate;
+
     private String time;
 
     private int likeNum;
@@ -55,18 +58,26 @@ public class Post {
      */
     private List<Discuss> discuss;
 
+    private Date replyDate;
+
+    /**
+     * 最新回复时间
+     */
+    private String replyTime;
+
     public Post() {
 
     }
 
     @PersistenceConstructor
-    public Post(ObjectId groupId, String title, String username, String imgAddr, String mainBody, String time) {
+    public Post(ObjectId groupId, String title, String username, String imgAddr, String mainBody) {
         this.groupId = groupId;
         this.title = title;
         this.username = username;
         this.imgAddr = imgAddr;
         this.mainBody = mainBody;
-        this.time = time;
+        createDate = new Date();
+        time = String.format("%tY年%<tm月%<td日", createDate) + " " + String.format("%tT", createDate);//2010年10月4日 17:31:11
         likeNum = 0;
         collectNum = 0;
         isGreat = 0;
@@ -168,5 +179,9 @@ public class Post {
 
     public void setDiscuss(List<Discuss> discuss) {
         this.discuss = discuss;
+    }
+
+    public String getName() {
+        return title;
     }
 }

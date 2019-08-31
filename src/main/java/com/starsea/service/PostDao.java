@@ -57,21 +57,32 @@ public interface PostDao {
     //查
     public List<Post> getPostByUsername(String username);
 
-    public List<Post> getPostByTitle(String title);
+    public List<Post> getPostByTitleLike(String title);
 
-    public List<Post> getPostByGroup(Group group);
+    /**
+     * 获取小组的帖子
+     * @param group 指定小组
+     * @param flag 排序，1是按发帖时间，2是按热度，3是按最近回复时间
+     * @param num 指定数量
+     * @return
+     */
+    public List<Post> getPostByGroup(Group group, int flag, int num);
+
+    public List<Post> getPostByKeyword(String keyword);
+
+    public List<Post> getPostByHeatDegree(int num);
 
     /**
      * 获取精华帖
      * @return
      */
-    public List<Post> getPostByIsGreat();
+    public List<Post> getPostByIsGreat(Group group);
 
     /**
      * 获取置顶帖
      * @return
      */
-    public List<Post> getPostByIsTop();
+    public List<Post> getPostByIsTop(Group group);
 
     public Post getPostById(ObjectId id);
 }

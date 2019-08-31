@@ -2,6 +2,7 @@ package com.starsea.service;
 
 import com.starsea.entity.Group;
 import com.starsea.entity.User;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -40,10 +41,10 @@ public interface GroupDao {
 
     /**
      * 修改小组热度
-     * 先放着
      * @param group
+     * @param flag 1和-1
      */
-    public void updateGroupHeatDegree(Group group);
+    public void updateGroupHeatDegree(Group group, int flag);
 
     public Group getGroupByName(String name);
 
@@ -52,6 +53,10 @@ public interface GroupDao {
     public List<Group> getGroupByTag(String tag);
 
     public List<Group> getGroupByHeatDegree(int num);
+
+    public Group getGroupByGroupId(ObjectId groupId);
+
+    public boolean isJoinGroup(ObjectId groupId, String username);
 
 
 }

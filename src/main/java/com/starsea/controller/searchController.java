@@ -1,11 +1,15 @@
 package com.starsea.controller;
 
+import com.starsea.controller.sort.ListSortByScore;
 import com.starsea.entity.Book;
 import com.starsea.entity.Group;
 import com.starsea.entity.Movie;
 import com.starsea.entity.Post;
 import com.starsea.service.BookDao;
+import com.starsea.service.GroupDao;
 import com.starsea.service.MovieDao;
+import com.starsea.service.PostDao;
+import com.starsea.vo.AllList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -21,6 +27,10 @@ public class searchController {
     private BookDao bookDao;
     @Autowired
     private MovieDao movieDao;
+    @Autowired
+    private GroupDao groupDao;
+    @Autowired
+    private PostDao postDao;
 
     @CrossOrigin
     @RequestMapping(value = "/api/searchBook", method = RequestMethod.GET)
@@ -58,87 +68,23 @@ public class searchController {
         return movies;
     }
 
-    /*
     @CrossOrigin
     @RequestMapping(value = "/api/searchAll", method = RequestMethod.GET)
     @ResponseBody
-    public AllList searchAllByKeyword(String keyword) {
-        AllList allList = new AllList();
-        if(keyword==null) {
-            System.out.println("keyword==null");
-            return null;
-        }
+    public List<AllList> searchAllByKeyword(String keyword) {
         List<Movie> tvs = movieDao.getMovieByKeyword(keyword, "true");
         List<Movie> movies = movieDao.getMovieByKeyword(keyword, "false");
-        List<Book> books =
-        return movies;
-    }
-     */
-
-}
-
-
-class AllList {
-    List<Book> books;
-    List<Movie> movies;
-    List<Movie> TVs;
-    List<Group> groups;
-    List<Post> posts;
-
-    public AllList() {
-
+        List<Book> books = bookDao.getBookByKeyword(keyword);
+        List<Group> groups = groupDao.getGroupByKeyword(keyword);
+        List<Post> posts = postDao.getPostByKeyword(keyword);
+        List<AllList> allLists = AllList.transMovieToAllList(tvs);
+        allLists.addAll(AllList.transBookToAllList(books));
+        allLists.addAll(AllList.transMovieToAllList(movies));
+        allLists.addAll(AllList.transGroupToAllList(groups));
+        allLists.addAll(AllList.transPostToAllList(posts));
+        //按评分排序
+        Collections.sort(allLists, new ListSortByScore());
+        return allLists;
     }
 
-    public AllList(List<Book> books, List<Movie> movies) {
-        this.books = books;
-        this.movies = movies;
-    }
-
-    public AllList(List<Book> books, List<Movie> movies, List<Movie> TVs, List<Group> groups, List<Post> posts) {
-        this.books = books;
-        this.movies = movies;
-        this.TVs = TVs;
-        this.groups = groups;
-        this.posts = posts;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
-    public List<Movie> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
-    }
-
-    public List<Movie> getTVs() {
-        return TVs;
-    }
-
-    public void setTVs(List<Movie> TVs) {
-        this.TVs = TVs;
-    }
-
-    public List<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
-    }
-
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
 }
