@@ -5,6 +5,7 @@ import com.starsea.entity.Post;
 import com.starsea.service.GroupDao;
 import com.starsea.service.PostDao;
 import com.starsea.service.UserDao;
+import com.starsea.vo.OperateMember;
 import com.starsea.vo.VueAddPost;
 import com.starsea.vo.VueJoinGroup;
 import org.bson.types.ObjectId;
@@ -75,6 +76,67 @@ public class showGroupController {
         ObjectId groupId = new ObjectId(vueAddPost.getGroupId());
         Post post = new Post(groupId, title, username, imgAddr, mainBody);
         postDao.addPost(post);
+        return "SUCCESS";
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/isAdmin", method = RequestMethod.GET)
+    @ResponseBody
+    public int isAdmin(String groupId, String username) {
+        return groupDao.isGroupAdmin(new ObjectId(groupId), username);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/deleteMember", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String deleteMember(@RequestBody OperateMember operateMember) {
+        Group group = groupDao.getGroupByGroupId(new ObjectId(operateMember.getGroupId()));
+        groupDao.deleteGroupMember(group, operateMember.getUsername());
+        return "SUCCESS";
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/deleteAdmin", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String deleteAdmin(@RequestBody OperateMember operateMember) {
+        Group group = groupDao.getGroupByGroupId(new ObjectId(operateMember.getGroupId()));
+        groupDao.deleteGroupAdmin(group, operateMember.getUsername());
+        return "SUCCESS";
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/addAdmin", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String addAdmin(@RequestBody OperateMember operateMember) {
+        Group group = groupDao.getGroupByGroupId(new ObjectId(operateMember.getGroupId()));
+        groupDao.addGroupAdmin(group, operateMember.getUsername());
+        return "SUCCESS";
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/setTopPost", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String setTopPost(@RequestBody String postId) {
+        ObjectId Id = new ObjectId(postId);
+        postDao.updateIsTop(postDao.getPostById(Id));
+        return "SUCCESS";
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/setGreatPost", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String setGreatPost(@RequestBody String postId) {
+        ObjectId Id = new ObjectId(postId);
+        postDao.updateIsTop(postDao.getPostById(Id));
+        return "SUCCESS";
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/deletePost", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String deletePost(@RequestBody String postId) {
+        ObjectId Id = new ObjectId(postId);
+        postDao.deletePost(postDao.getPostById(Id));
         return "SUCCESS";
     }
 

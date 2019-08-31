@@ -15,4 +15,6 @@ public interface GroupRepository extends MongoRepository<Group, ObjectId> {
     public List<Group> findByNameLike(String keyword);
 
     public List<Group> findByTagsLike(String tag);
+
+    public List<Group> findByLeaderName(String leaderName);
 }

@@ -60,15 +60,27 @@ public class PostDaoImpl implements PostDao {
     }
 
 
-    public void updateIsTop(Post post, int isTop) {
+    public void updateIsTop(Post post) {
         Query query = new Query(Criteria.where("postId").is(post.getPostId()));
+        int isTop = post.getIsTop();
+        if(isTop == 0) {
+            isTop = 1;
+        } else {
+            isTop = 0;
+        }
         Update update = new Update();
         update.set("isTop", isTop);
         mongoTemplate.updateFirst(query, update, Post.class);
     }
 
-    public void updateIsGreat(Post post, int isGreat) {
+    public void updateIsGreat(Post post) {
         Query query = new Query(Criteria.where("postId").is(post.getPostId()));
+        int isGreat = post.getIsGreat();
+        if(isGreat == 0) {
+            isGreat = 1;
+        } else {
+            isGreat = 0;
+        }
         Update update = new Update();
         update.set("isGreat", isGreat);
         mongoTemplate.updateFirst(query, update, Post.class);

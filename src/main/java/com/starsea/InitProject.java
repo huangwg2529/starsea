@@ -51,14 +51,17 @@ public class InitProject implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+        /*
         User user = userDao.getUserByName("12345");
 
         userDao.updateMyPosts("12345", new ObjectId("5d67725f9107403604d53c54"), 1);
         userDao.updateMyGroups("12345", new ObjectId("5d66737b9107402e2003a8fc"), 1);
         userDao.updateStarPosts("12345", new ObjectId("5d67725f9107403604d53c54"), 1);
         userDao.updateCollectPosts("12345", new ObjectId("5d67725f9107403604d53c54"), 1);
-        userDao.updateCollectBooks("12345", new ObjectId("5d652c9999d1ab45201b275c"));
+        userDao.updateCollectBooks("12345", new ObjectId("5d652bc69107401fa4b28f7d"));
         userDao.updateCollectMovies("12345", new ObjectId("5d663b4599d1ab45201b2764"));
+
+         */
 
 
         /*

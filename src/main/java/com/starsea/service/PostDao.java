@@ -31,15 +31,14 @@ public interface PostDao {
     /**
      * 设置是否置顶
      * @param post
-     * @param isTop 0和1
      */
-    public void updateIsTop(Post post, int isTop);
+    public void updateIsTop(Post post);
 
     /**
      * 设置是否精华
      * 0和1
      */
-    public void updateIsGreat(Post post, int isGreat);
+    public void updateIsGreat(Post post);
 
     //修改评论区
     public void addDiscuss(Post post, Discuss discuss);

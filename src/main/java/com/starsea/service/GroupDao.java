@@ -58,5 +58,9 @@ public interface GroupDao {
 
     public boolean isJoinGroup(ObjectId groupId, String username);
 
+    public int isGroupAdmin(ObjectId groupId, String username);
+
+    public List<Group> getGroupICreated(String username);
+
 
 }

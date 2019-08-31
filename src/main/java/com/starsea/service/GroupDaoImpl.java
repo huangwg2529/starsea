@@ -116,9 +116,26 @@ public class GroupDaoImpl implements GroupDao {
         return mongoTemplate.find(query, Group.class);
     }
 
+    public List<Group> getGroupICreated(String username) {
+        return groupRepository.findByLeaderName(username);
+    }
+
     public boolean isJoinGroup(ObjectId groupId, String username) {
         Group group = getGroupByGroupId(groupId);
         List<String> membersName = group.getMembersName();
         return membersName.contains(username);
     }
+
+    public int isGroupAdmin(ObjectId groupId, String username) {
+        Group group = getGroupByGroupId(groupId);
+        List<String> adminsName = group.getAdminsName();
+        if(adminsName.contains(username)) {
+            return 1;
+        } else if(group.getLeaderName().equals(username)) {
+            return 2;
+        } else {
+            return 0;
+        }
+    }
+
 }

@@ -69,6 +69,29 @@ public class searchController {
     }
 
     @CrossOrigin
+    @RequestMapping(value = "/api/searchGroup", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Group> searchGroupByKeyword(String keyword) {
+        if(keyword==null) {
+            System.out.println("keyword==null");
+            return null;
+        }
+        return groupDao.getGroupByKeyword(keyword);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/searchPost", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Post> searchPostByKeyword(String keyword) {
+        if(keyword==null) {
+            System.out.println("keyword==null");
+            return null;
+        }
+        return postDao.getPostByKeyword(keyword);
+    }
+
+
+    @CrossOrigin
     @RequestMapping(value = "/api/searchAll", method = RequestMethod.GET)
     @ResponseBody
     public List<AllList> searchAllByKeyword(String keyword) {

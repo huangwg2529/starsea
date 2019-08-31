@@ -17,6 +17,8 @@ import java.util.List;
 public class UserHomeController {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private GroupDao groupDao;
 
     /*
     @CrossOrigin
@@ -46,6 +48,13 @@ public class UserHomeController {
     @ResponseBody
     public List<Book> showCollectBooks(String username) {
         return userDao.getCollectBooks(username);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/showCreateGroups", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Group> showCreateGroups(String username) {
+        return groupDao.getGroupICreated(username);
     }
 
     @CrossOrigin

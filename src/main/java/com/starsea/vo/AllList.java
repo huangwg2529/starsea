@@ -39,15 +39,15 @@ public class AllList {
         }
         else if(result instanceof Group) {
             flag = 4;
-            double degree = ((Group) result).getHeatDegree() / 20;
+            double degree = ((Group) result).getHeatDegree() / 200;
             if(degree > 0.5) {
                 degree = 0.5;
             }
-            score = 4.3 + degree;
+            score = 4.4 + degree;
         }
         else if(result instanceof Post) {
             flag = 5;
-            double degree = ( ((Post) result).getLikeNum() + ((Post) result).getCollectNum() ) / 20;
+            double degree = ( ((Post) result).getLikeNum() + ((Post) result).getCollectNum() ) / 200;
             if(degree > 0.5) {
                 degree = 0.5;
             }
