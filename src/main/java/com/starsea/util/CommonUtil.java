@@ -18,6 +18,7 @@ public class CommonUtil {
      * @param validateSessionKey session名称
      * @throws Exception
      */
+    /*
     public static void validateCode(HttpServletRequest request, HttpServletResponse response, DefaultKaptcha captchaProducer, String validateSessionKey) throws Exception{
         // Set to expire far in the past.
         response.setDateHeader("Expires", 0);
@@ -50,5 +51,7 @@ public class CommonUtil {
             out.close();
         }
     }
+
+     */
 
 }

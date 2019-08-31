@@ -34,6 +34,7 @@ public class showGroupController {
     @RequestMapping(value = "/api/showGroup", method = RequestMethod.GET)
     @ResponseBody
     public Group showGroup(String groupId) {
+        System.out.println("show");
         return groupDao.getGroupByGroupId(new ObjectId(groupId));
     }
 

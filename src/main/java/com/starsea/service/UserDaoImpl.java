@@ -107,6 +107,9 @@ public class UserDaoImpl implements UserDao {
     public void updateCollectPosts(String username, ObjectId postId, int flag) {
         Query query = new Query(Criteria.where("username").is(username));
         List<ObjectId> collectPosts = getUserByName(username).getCollectPosts();
+        if(collectPosts == null) {
+             collectPosts = new ArrayList<ObjectId>();
+        }
         if(flag == 1) {
             collectPosts.add(postId);
         } else if(flag == -1) {
@@ -120,6 +123,9 @@ public class UserDaoImpl implements UserDao {
     public void updateStarPosts(String username, ObjectId postId, int flag) {
         Query query = new Query(Criteria.where("username").is(username));
         List<ObjectId> starPosts = getUserByName(username).getStarPosts();
+        if(starPosts == null) {
+            starPosts = new ArrayList<ObjectId>();
+        }
         if(flag == 1) {
             starPosts.add(postId);
         } else if(flag == -1) {
@@ -133,6 +139,9 @@ public class UserDaoImpl implements UserDao {
     public void updateMyPosts(String username, ObjectId postId, int flag) {
         Query query = new Query(Criteria.where("username").is(username));
         List<ObjectId> myPosts = getUserByName(username).getMyPosts();
+        if(myPosts == null) {
+            myPosts = new ArrayList<ObjectId>();
+        }
         if(flag == 1) {
             myPosts.add(postId);
         } else if(flag == -1) {
@@ -146,6 +155,9 @@ public class UserDaoImpl implements UserDao {
     public void updateMyGroups(String username, ObjectId groupId, int flag) {
         Query query = new Query(Criteria.where("username").is(username));
         List<ObjectId> myGroups = getUserByName(username).getMyGroups();
+        if(myGroups == null) {
+            myGroups = new ArrayList<ObjectId>();
+        }
         if(flag == 1) {
             myGroups.add(groupId);
         } else if(flag == -1) {
@@ -159,6 +171,9 @@ public class UserDaoImpl implements UserDao {
     public void updateCollectBooks(String username, ObjectId Id) {
         Query query = new Query(Criteria.where("username").is(username));
         List<ObjectId> collectBooks = getUserByName(username).getCollectBooks();
+        if(collectBooks == null) {
+            collectBooks = new ArrayList<ObjectId>();
+        }
         collectBooks.add(Id);
         Update update = new Update();
         update.set("collectBooks", collectBooks);
@@ -168,6 +183,9 @@ public class UserDaoImpl implements UserDao {
     public void updateCollectMovies(String username, ObjectId movieId) {
         Query query = new Query(Criteria.where("username").is(username));
         List<ObjectId> collectMovies = getUserByName(username).getCollectMovies();
+        if(collectMovies == null) {
+            collectMovies = new ArrayList<ObjectId>();
+        }
         collectMovies.add(movieId);
         Update update = new Update();
         update.set("collectMovies", collectMovies);
