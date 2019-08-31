@@ -33,7 +33,7 @@ public interface UserDao {
 
     public void updateMyGroups(String username, ObjectId groupId, int flag);
 
-    public void updateCollectBooks(String username, ObjectId Id);
+    public void updateCollectBooks(String username, String isbn);
 
     public void updateCollectMovies(String username, ObjectId movieId);
 

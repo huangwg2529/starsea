@@ -21,9 +21,12 @@ public class MovieEvaluationDaoImpl implements MovieEvaluationDao {
     private MongoTemplate mongoTemplate;
     @Autowired
     private MovieEvaluationRepository movieEvaluationRepository;
+    @Autowired
+    private UserDao userDao;
 
     public void addMovieEvaluation(MovieEvaluation movieEvaluation) {
         movieEvaluationRepository.insert(movieEvaluation);
+        userDao.updateCollectMovies(movieEvaluation.getUsername(), movieEvaluation.getMovieId());
     }
 
     public void deleteMovieEvaluation(MovieEvaluation movieEvaluation) {

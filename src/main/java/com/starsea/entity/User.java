@@ -37,7 +37,7 @@ public class User implements Serializable {
     /**
      * 评论过的书籍
      */
-    private List<ObjectId> collectBooks;
+    private List<String> collectBooks;
 
     /**
      * 点赞过的帖子
@@ -108,11 +108,11 @@ public class User implements Serializable {
         this.collectMovies = collectMovies;
     }
 
-    public List<ObjectId> getCollectBooks() {
+    public List<String> getCollectBooks() {
         return collectBooks;
     }
 
-    public void setCollectBooks(List<ObjectId> collectBooks) {
+    public void setCollectBooks(List<String> collectBooks) {
         this.collectBooks = collectBooks;
     }
 

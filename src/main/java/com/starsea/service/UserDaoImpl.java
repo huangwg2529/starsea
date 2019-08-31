@@ -51,10 +51,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<Book> getCollectBooks(String username) {
         User user = getUserByName(username);
-        List<ObjectId> ids = user.getCollectBooks();
+        List<String> ids = user.getCollectBooks();
         List<Book> collectBooks = new ArrayList<Book>();
         for(int i=0; i<ids.size(); i++) {
-            collectBooks.add(bookDao.getBookByBookId(ids.get(i)));
+            collectBooks.add(bookDao.getBookByIsbn(ids.get(i)));
         }
         return collectBooks;
     }
@@ -168,13 +168,13 @@ public class UserDaoImpl implements UserDao {
         mongoTemplate.updateFirst(query, update, User.class);
     }
 
-    public void updateCollectBooks(String username, ObjectId Id) {
+    public void updateCollectBooks(String username, String isbn) {
         Query query = new Query(Criteria.where("username").is(username));
-        List<ObjectId> collectBooks = getUserByName(username).getCollectBooks();
+        List<String> collectBooks = getUserByName(username).getCollectBooks();
         if(collectBooks == null) {
-            collectBooks = new ArrayList<ObjectId>();
+            collectBooks = new ArrayList<String>();
         }
-        collectBooks.add(Id);
+        collectBooks.add(isbn);
         Update update = new Update();
         update.set("collectBooks", collectBooks);
         mongoTemplate.updateFirst(query, update, User.class);

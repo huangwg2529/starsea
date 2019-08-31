@@ -188,5 +188,24 @@ public class Movie implements Serializable {
     public String getFlag() {
         return flag;
     }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "movieId=" + movieId +
+                ", name='" + name + '\'' +
+                ", flag='" + flag + '\'' +
+                ", director='" + director + '\'' +
+                ", stars='" + stars + '\'' +
+                ", types='" + types + '\'' +
+                ", region='" + region + '\'' +
+                ", language='" + language + '\'' +
+                ", releaseYear=" + releaseYear +
+                ", score=" + score +
+                ", evaluationNum=" + evaluationNum +
+                ", introduction='" + introduction + '\'' +
+                ", imgAddr='" + imgAddr + '\'' +
+                '}';
+    }
 }
 

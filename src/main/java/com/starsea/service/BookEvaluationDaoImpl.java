@@ -22,12 +22,13 @@ public class BookEvaluationDaoImpl implements BookEvaluationDao {
     private MongoTemplate mongoTemplate;
     @Autowired
     private BookDao bookDao;
+    @Autowired
+    private UserDao userDao;
 
     public void addBookEvaluation(BookEvaluation bookEvaluation) {
         bookEvaluationRepository.insert(bookEvaluation);
         bookDao.updateBookScore(bookDao.getBookByIsbn(bookEvaluation.getIsbn()), bookEvaluation.getScore());
-        //添加到用户列表
-        //需要添加
+        userDao.updateCollectBooks(bookEvaluation.getUsername(), bookEvaluation.getIsbn());
     }
 
     public void deleteBookEvaluation(BookEvaluation bookEvaluation) {
