@@ -1,9 +1,6 @@
 package com.starsea.service;
 
-import com.starsea.entity.Book;
-import com.starsea.entity.Movie;
-import com.starsea.entity.Post;
-import com.starsea.entity.User;
+import com.starsea.entity.*;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
@@ -28,11 +25,19 @@ public interface UserDao {
 
     public List<Movie> getCollectMovies(String username);
 
-    public void updateCollectPosts(String username, ObjectId postId);
+    public void updateCollectPosts(String username, ObjectId postId, int flag);
 
-    public void updateStarPosts(String username, ObjectId postId);
+    public void updateStarPosts(String username, ObjectId postId, int flag);
+
+    public void updateMyPosts(String username, ObjectId postId, int flag);
+
+    public void updateMyGroups(String username, ObjectId groupId, int flag);
 
     public void updateCollectBooks(String username, ObjectId Id);
 
     public void updateCollectMovies(String username, ObjectId movieId);
+
+    public List<Post> getMyPosts(String username);
+
+    public List<Group> getMyGroups(String username);
 }

@@ -1,7 +1,6 @@
 package com.starsea.service;
 
 import com.starsea.entity.Group;
-import com.starsea.entity.User;
 import com.starsea.repository.GroupRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +42,8 @@ public class GroupDaoImpl implements GroupDao {
         mongoTemplate.updateFirst(query, update, Group.class);
         //热度+1
         updateGroupHeatDegree(group, 1);
+        //更新个人主页
+        userDao.updateMyGroups(username, group.getGroupId(), 1);
     }
 
     public void deleteGroupMember(Group group, String username) {
@@ -57,6 +58,7 @@ public class GroupDaoImpl implements GroupDao {
         mongoTemplate.updateFirst(query, update, "groups");
         //热度-1
         updateGroupHeatDegree(group, -1);
+        userDao.updateMyGroups(username, group.getGroupId(), -1);
     }
 
     public void addGroupAdmin(Group group, String username) {

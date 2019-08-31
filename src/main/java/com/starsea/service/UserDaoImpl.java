@@ -1,9 +1,6 @@
 package com.starsea.service;
 
-import com.starsea.entity.Book;
-import com.starsea.entity.Movie;
-import com.starsea.entity.Post;
-import com.starsea.entity.User;
+import com.starsea.entity.*;
 import com.starsea.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,31 +25,27 @@ public class UserDaoImpl implements UserDao {
     private MovieDao movieDao;
     @Autowired
     private PostDao postDao;
+    @Autowired
+    private GroupDao groupDao;
 
-    //增
     @Override
     public void addUser(User user){
         userRepository.insert(user);
     }
 
-    //删
     @Override
     public void deleteUser(User user) {
         userRepository.delete(user);
     }
 
-    //改
     @Override
     public void updateUser(User user) {
         //userRepository.
     }
 
-
-    //查
     @Override
     public User getUserByName(String username){
         return userRepository.findByUsername(username);
-        //return mongoTemplate.findOne(new Query(Criteria.where("username").is(username)), User.class);
     }
 
     @Override
@@ -93,30 +86,92 @@ public class UserDaoImpl implements UserDao {
         return starPosts;
     }
 
-    public void updateCollectPosts(String username, ObjectId postId) {
+    public List<Post> getMyPosts(String username) {
+        List<ObjectId> ids = getUserByName(username).getMyPosts();
+        List<Post> myPosts = new ArrayList<Post>();
+        for(int i=0; i<ids.size(); i++) {
+            myPosts.add(postDao.getPostById(ids.get(i)));
+        }
+        return myPosts;
+    }
+
+    public List<Group> getMyGroups(String username) {
+        List<ObjectId> ids = getUserByName(username).getMyGroups();
+        List<Group> myGroups = new ArrayList<Group>();
+        for(int i=0; i<ids.size(); i++) {
+            myGroups.add(groupDao.getGroupByGroupId(ids.get(i)));
+        }
+        return myGroups;
+    }
+
+    public void updateCollectPosts(String username, ObjectId postId, int flag) {
         Query query = new Query(Criteria.where("username").is(username));
         List<ObjectId> collectPosts = getUserByName(username).getCollectPosts();
-        collectPosts.add(postId);
+        if(flag == 1) {
+            collectPosts.add(postId);
+        } else if(flag == -1) {
+            collectPosts.remove(postId);
+        }
         Update update = new Update();
         update.set("collectPosts", collectPosts);
         mongoTemplate.updateFirst(query, update, User.class);
     }
 
-    public void updateStarPosts(String username, ObjectId postId) {
+    public void updateStarPosts(String username, ObjectId postId, int flag) {
         Query query = new Query(Criteria.where("username").is(username));
         List<ObjectId> starPosts = getUserByName(username).getStarPosts();
-        starPosts.add(postId);
+        if(flag == 1) {
+            starPosts.add(postId);
+        } else if(flag == -1) {
+            starPosts.remove(postId);
+        }
         Update update = new Update();
         update.set("starPosts", starPosts);
         mongoTemplate.updateFirst(query, update, User.class);
     }
 
-    public void updateCollectBooks(String username, ObjectId Id) {
+    public void updateMyPosts(String username, ObjectId postId, int flag) {
+        Query query = new Query(Criteria.where("username").is(username));
+        List<ObjectId> myPosts = getUserByName(username).getMyPosts();
+        if(flag == 1) {
+            myPosts.add(postId);
+        } else if(flag == -1) {
+            myPosts.remove(postId);
+        }
+        Update update = new Update();
+        update.set("myPosts", myPosts);
+        mongoTemplate.updateFirst(query, update, User.class);
+    }
 
+    public void updateMyGroups(String username, ObjectId groupId, int flag) {
+        Query query = new Query(Criteria.where("username").is(username));
+        List<ObjectId> myGroups = getUserByName(username).getMyGroups();
+        if(flag == 1) {
+            myGroups.add(groupId);
+        } else if(flag == -1) {
+            myGroups.remove(groupId);
+        }
+        Update update = new Update();
+        update.set("myGroups", myGroups);
+        mongoTemplate.updateFirst(query, update, User.class);
+    }
+
+    public void updateCollectBooks(String username, ObjectId Id) {
+        Query query = new Query(Criteria.where("username").is(username));
+        List<ObjectId> collectBooks = getUserByName(username).getCollectBooks();
+        collectBooks.add(Id);
+        Update update = new Update();
+        update.set("collectBooks", collectBooks);
+        mongoTemplate.updateFirst(query, update, User.class);
     }
 
     public void updateCollectMovies(String username, ObjectId movieId) {
-
+        Query query = new Query(Criteria.where("username").is(username));
+        List<ObjectId> collectMovies = getUserByName(username).getCollectMovies();
+        collectMovies.add(movieId);
+        Update update = new Update();
+        update.set("collectMovies", collectMovies);
+        mongoTemplate.updateFirst(query, update, User.class);
     }
 
 }

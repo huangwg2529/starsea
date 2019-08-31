@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.Date;
 import java.util.List;
 
@@ -24,12 +25,16 @@ public class PostDaoImpl implements PostDao {
     private MongoTemplate mongoTemplate;
     @Autowired
     private GroupDao groupDao;
+    @Autowired
+    private UserDao userDao;
 
     public void addPost(Post post) {
         postRepository.insert(post);
         Group group = groupDao.getGroupByGroupId(post.getGroupId());
         //热度+1
         groupDao.updateGroupHeatDegree(group, 1);
+        //添加进个人主页的”我的帖子“
+        userDao.updateMyPosts(post.getUsername(), post.getPostId(), 1);
     }
 
     public void deletePost(Post post) {
@@ -37,6 +42,7 @@ public class PostDaoImpl implements PostDao {
         Group group = groupDao.getGroupByGroupId(post.getGroupId());
         //热度-1
         groupDao.updateGroupHeatDegree(group, -1);
+        userDao.updateMyPosts(post.getUsername(), post.getPostId(), -1);
     }
 
     public void updateLikeNum(Post post, int flag) {
@@ -162,7 +168,6 @@ public class PostDaoImpl implements PostDao {
     public Post getPostById(ObjectId id) {
         return postRepository.findByPostId(id);
     }
-
 
     /**
      * 查询一个属性的子属性，例如：查下面数据的key2.keyA的语句

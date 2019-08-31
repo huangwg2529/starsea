@@ -1,5 +1,7 @@
 package com.starsea.entity;
 
+import java.util.Date;
+
 public class Discuss {
     /**
      * 识别id
@@ -17,6 +19,8 @@ public class Discuss {
      */
     private String beReplierName;
 
+    private Date date;
+
     private String time;
 
     private String mainBody;
@@ -27,11 +31,12 @@ public class Discuss {
 
     }
 
-    public Discuss(String replierName, String imgAddr, String beReplierName, String time, String mainBody) {
+    public Discuss(String replierName, String imgAddr, String beReplierName, String mainBody) {
         this.replierName = replierName;
         this.imgAddr = imgAddr;
         this.beReplierName = beReplierName;
-        this.time = time;
+        date = new Date();
+        time = String.format("%tY年%<tm月%<td日", date) + " " + String.format("%tT", date);//2010年10月4日 17:31:11
         this.mainBody = mainBody;
         likeNum = 0;
     }

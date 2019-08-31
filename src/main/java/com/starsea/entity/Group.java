@@ -42,7 +42,7 @@ public class Group {
         this.tags = tags;
         this.introduction = introduction;
         date = new Date();
-        createTime = String.format("%tY年%<tm月%<td日", date) + " " + String.format("%tT", date);//2010年10月4日 17:31:11
+        createTime = String.format("%tY年%<tm月%<td日", date);//2010年10月4日 17:31:11
         this.leaderName = leaderName;
         this.membersName = new ArrayList<String>();
         this.membersName.add(leaderName);

@@ -25,7 +25,7 @@ public class User implements Serializable {
     @Field
     private String password;
     @Field
-    private String email;
+    private String signature;
     @Field
     private String imgAddr = "http://114.115.131.124:8666/image/book/test.png";
 
@@ -45,6 +45,10 @@ public class User implements Serializable {
     private List<ObjectId> starPosts;
 
     private List<ObjectId> collectPosts;
+
+    private List<ObjectId> myPosts;
+
+    private List<ObjectId> myGroups;
 
     public User() {
 
@@ -80,12 +84,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSignature() {
+        return signature;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
     public String getImgAddr() {
@@ -126,5 +130,21 @@ public class User implements Serializable {
 
     public void setCollectPosts(List<ObjectId> collectPosts) {
         this.collectPosts = collectPosts;
+    }
+
+    public List<ObjectId> getMyPosts() {
+        return myPosts;
+    }
+
+    public void setMyPosts(List<ObjectId> myPosts) {
+        this.myPosts = myPosts;
+    }
+
+    public List<ObjectId> getMyGroups() {
+        return myGroups;
+    }
+
+    public void setMyGroups(List<ObjectId> myGroups) {
+        this.myGroups = myGroups;
     }
 }

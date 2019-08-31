@@ -1,8 +1,11 @@
 package com.starsea.controller;
 
 import com.starsea.entity.Group;
+import com.starsea.entity.Post;
 import com.starsea.service.GroupDao;
 import com.starsea.service.PostDao;
+import com.starsea.service.UserDao;
+import com.starsea.vo.VueAddPost;
 import com.starsea.vo.VueJoinGroup;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,8 @@ public class showGroupController {
     private GroupDao groupDao;
     @Autowired
     private PostDao postDao;
+    @Autowired
+    private UserDao userDao;
 
     @CrossOrigin
     @RequestMapping(value = "/api/showGroupIndex", method = RequestMethod.GET)
@@ -28,7 +33,7 @@ public class showGroupController {
     @CrossOrigin
     @RequestMapping(value = "/api/showGroup", method = RequestMethod.GET)
     @ResponseBody
-    public Group showGroupIndex(String groupId) {
+    public Group showGroup(String groupId) {
         return groupDao.getGroupByGroupId(new ObjectId(groupId));
     }
 
@@ -58,27 +63,18 @@ public class showGroupController {
         return groupDao.isJoinGroup(new ObjectId(groupId), username);
     }
 
-
-
-
-    /*
-        @CrossOrigin
-    @RequestMapping(value = "/api/addBookEvaluation", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @CrossOrigin
+    @RequestMapping(value = "/api/addPost", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String addBookEvaluation(@RequestBody VueAddBE vueAddBE) {
-        String username = vueAddBE.getUsername();
-        double score = Double.parseDouble(vueAddBE.getScore());
-        String isbn = vueAddBE.getIsbn();
-        String evaluation = vueAddBE.getEvaluation();
-        if(vueAddBE.getEvaluation().length() < 25) {
-            return "请输入25个字符或以上的内容！";
-        }
-        BookEvaluation bookEvaluation = new BookEvaluation(username, isbn, score, evaluation);
-        bookEvaluationDao.addBookEvaluation(bookEvaluation);
+    public String addPost(@RequestBody VueAddPost vueAddPost) {
+        String username = vueAddPost.getUsername();
+        String imgAddr = userDao.getUserByName(username).getImgAddr();
+        String title = vueAddPost.getTitle();
+        String mainBody = vueAddPost.getMainBody();
+        ObjectId groupId = new ObjectId(vueAddPost.getGroupId());
+        Post post = new Post(groupId, title, username, imgAddr, mainBody);
+        postDao.addPost(post);
         return "SUCCESS";
     }
-     */
-
-
 
 }
