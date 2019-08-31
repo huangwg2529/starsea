@@ -1,4 +1,8 @@
 package com.starsea.service;
+public class KaptchaConfig {
+
+}
+/*
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
@@ -36,3 +40,7 @@ public class KaptchaConfig {
         return defaultKaptcha;
     }
 }
+
+
+
+ */

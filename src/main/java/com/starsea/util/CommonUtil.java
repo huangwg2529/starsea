@@ -1,13 +1,5 @@
 package com.starsea.util;
 
-import com.google.code.kaptcha.impl.DefaultKaptcha;
-
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-
 public class CommonUtil {
 
     /**
