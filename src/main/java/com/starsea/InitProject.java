@@ -51,6 +51,8 @@ public class InitProject implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+        boolean flag = groupDao.isJoinGroup(groupDao.getGroupByName("北航").getGroupId(), "12345");
+        System.out.println(flag);
         /*
         User user = userDao.getUserByName("12345");
 

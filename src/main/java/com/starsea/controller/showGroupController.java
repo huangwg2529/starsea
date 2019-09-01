@@ -61,7 +61,7 @@ public class showGroupController {
     @CrossOrigin
     @RequestMapping(value = "/api/isJoinGroup", method = RequestMethod.GET)
     @ResponseBody
-    public boolean isBookEvaluation(String groupId, String username) {
+    public boolean isJoinGroup(String groupId, String username) {
         return groupDao.isJoinGroup(new ObjectId(groupId), username);
     }
 
